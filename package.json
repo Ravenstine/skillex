@@ -1,0 +1,19 @@
+{
+  "name": "skills-in-pills",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "glob-fs": "^0.1.7",
+    "js-yaml": "^3.9.0",
+    "node-config-yml": "^1.0.1"
+  },
+  "devDependencies": {
+    "mocha": "^3.4.2"
+  }
+}
