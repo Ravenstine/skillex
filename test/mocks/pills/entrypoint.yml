@@ -1,3 +1,7 @@
+import: 
+  - defaults
+---
+
 Intro:
   dialog: Welcome to Spooky House.  The object of this game is to get to the exit with treasure and not get killed.
   go to: DiningRoom

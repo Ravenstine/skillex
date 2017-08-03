@@ -73,7 +73,7 @@ Run tests with the `mocha` command in the root project folder.
 - `attributes:` w/ operators
 - template strings
 - `eval:` or `script:`
-- import directive
+- metadata section w/ `import:` **complete**
 - template labels
 - `audio:`
 - compilation/merging of custom slot types
