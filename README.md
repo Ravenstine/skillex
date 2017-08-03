@@ -64,3 +64,24 @@ Testing uses [Mocha](https://github.com/mochajs/mocha).  It's also kinda horsesh
 
 Run tests with the `mocha` command in the root project folder.
 
+## TODO
+
+- http requests
+- `go to scene:`
+- `condition:`
+- `card:`
+- `attributes:` w/ operators
+- template strings
+- `eval:` or `script:`
+- import directive
+- template labels
+- `audio:`
+- compilation/merging of custom slot types
+- linter/warning system to catch errors
+- `reprompt:`
+- full support of multi-language strings
+- session persistence
+- `video:`
+
+
+
