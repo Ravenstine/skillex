@@ -19,6 +19,11 @@ FirstFloor:
           - stay here
           - stay
         go to: DiningRoom
+      AMAZON.StopIntent:
+        go to: ExitGame
+
+ExitGame:
+  dialog: goodbye
 
 DiningRoom:
   dialog: You enter the dining room.
