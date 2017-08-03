@@ -1,6 +1,6 @@
 Intro:
   dialog: Welcome to Spooky House.  The object of this game is to get to the exit with treasure and not get killed.
-  go to: DiningRoom
+  go to: FirstFloor
 
 FirstFloor:
   dialog: You enter the spooky house.
@@ -64,7 +64,7 @@ Upstairs:
 
 GhostDoor:
   dialog: You open the door and find a ghost. You are so scared you run downstairs to the front door.
-  go to: FirstFloor.choice
+  go to: FirstFloor
 
 GhostDoorDeath:
   dialog: You open the door and find a ghost. You are dead.
@@ -91,7 +91,7 @@ Kitchen:
 PoisonFoodDeath:
   dialog: The food is poisonous. You are dead.
 
-LivingRoomIntent:
+LivingRoom:
   dialog: You enter the living room. 
   choice:
     dialog: Will you turn on the radio or go to the hallway?
@@ -156,7 +156,7 @@ FoundTreasure:
 
 CantExit:
   dialog: You cannot exit until you have treasure.
-  go to: Hallway.choice
+  go to: Hallway
 
 GameOver:
   dialog: You managed to escape with the treasure.  You win!
