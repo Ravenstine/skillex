@@ -1,7 +1,7 @@
 'use strict';
 
 // This opens every pill, finds all the intent information, and merges it all
-// into an interaction-model JSON that you can paste into the code editor
+// into an intent-schema JSON that you can paste into the code editor
 // inside the Alexa Skills Kit.
 
 const pillBox = require('./lib/pills-loader')('./pills');
@@ -62,10 +62,11 @@ let json = JSON.stringify({
     intent.slots = []; // actually convert slots later, right now this is just to make things work
     return intent;
   }),
-  types: {},
-  dialog: {
-    version: "1.0",
-    intents: {}
-  }
+  // types: {},
+  // dialog: {
+  //   version: "1.0",
+  //   intents: {}
+  // }
 }, null, 2);
+
 console.log(json)

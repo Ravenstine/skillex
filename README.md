@@ -1,14 +1,12 @@
 Skills In Pills
 ===============
 
-An alternative way to write Alexa skills. (WIP)
+A nicer way to write Alexa skills. (WIP)
 
-## Goals
-
-- Allow people to write useful skills through human-readable configuration.
-- Make it easy to handle many complex states within a skill.
-- Encourage use of [SSML](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/speech-synthesis-markup-language-ssml-reference) by making it the default output speech type.
-- Let intents be defined inline where they are being used within states.
+- Write fun & useful skills through human-readable configuration.
+- Easily handle many complex states within a skill.
+- Define your intents within your skill configuration.
+- Use [SSML](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/speech-synthesis-markup-language-ssml-reference) as the default output speech type.
 
 ## Structure
 
@@ -19,13 +17,48 @@ Every pill contains a set of labels describing specific states.  A label is mere
 This is an example of a label:
 
 ```yaml
-Intro:
-  dialog: Hello world!
+FirstFloor:
+  dialog: You enter the spooky house.
+  choice:
+    dialog: Would you like to go upstairs, or stay on the floor you're on?
+    intents:
+      UpstairsIntent:
+        samples:
+          - go upstairs
+          - upstairs
+        go to: Upstairs
+      DiningRoomIntent:
+        samples:
+          - stay on the floor i'm on
+          - stay on this floor
+          - stay here
+          - stay
+        go to: DiningRoom
 ```
+
+## Compiler
+
+You can optionally include intent information inside of pills.  Currently, this is limited to just sample utterances, but will be expanded in the near future.
+
+`node compiler.js` will go through all intents mentioned in all the pills and merge them into a single JSON intent schema.  Copy & paste the output into your Alexa Skills Kit code editor.  Any intents with the same name get merged, including their sample utterances.
+
+## Development
+
+It's recommended that you use [bespoken.tools](https://bespoken.tools/).
+
+### Installation
+
+`npm install -g bespoken-tools`
+
+### Use
+
+`bst proxy lambda index.js`
+
+In your terminal, bst will print a link that you can provide to your Alexa skill configuration.  This will proxy requests from an Echo device to your skill.
 
 ## Tests
 
-Testing uses [Mocha](https://github.com/mochajs/mocha).
+Testing uses [Mocha](https://github.com/mochajs/mocha).  It's also kinda horseshit at the moment.
 
 `npm install -g mocha`
 
