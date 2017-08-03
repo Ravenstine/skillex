@@ -1,9 +1,9 @@
 Intro:
-  dialog: Welcome to Spooky House.  The object of this game is to get to the exit with treasure and not get killed.
+  dialog: Welcome to Spooky House.  The object of this game is to get to the exit with treasure and not get killed. You enter the spooky house.
   go to: FirstFloor
 
 FirstFloor:
-  dialog: You enter the spooky house.
+  dialog: You're on the first floor.
   choice:
     dialog: Would you like to go upstairs, or stay on the floor you're on?
     intents:
@@ -140,24 +140,24 @@ Hallway:
             retry: true
 
 FoundTreasure:
-  dialog: You found some treasure!
-  attributes:
-    hasTreasure: true
-  choice: 
-    dialog: Will you go back to the hall or to the next room?
-    intents:
-      HallwayIntent:
-        samples:
-          - back to the hallway
-          - go to the hallway
-          - the hallway
-          - hallway
-        go to: Hallway
-      NextRoomIntent:
-        samples:
-          - go to the next room
-          - the next room
-        go to: GhostDoorDeath
+  dialog: You found some treasure!  You win.
+  # attributes:
+  #   hasTreasure: true
+  # choice: 
+  #   dialog: Will you go back to the hall or to the next room?
+  #   intents:
+  #     HallwayIntent:
+  #       samples:
+  #         - back to the hallway
+  #         - go to the hallway
+  #         - the hallway
+  #         - hallway
+  #       go to: Hallway
+  #     NextRoomIntent:
+  #       samples:
+  #         - go to the next room
+  #         - the next room
+  #       go to: GhostDoorDeath
 
 CantExit:
   dialog: You cannot exit until you have treasure.

@@ -67,7 +67,7 @@ Run tests with the `mocha` command in the root project folder.
 ## TODO
 
 - http requests
-- `go to scene:`
+- `go to pill:`
 - `condition:`
 - `card:`
 - `attributes:` w/ operators
