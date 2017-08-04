@@ -6,7 +6,7 @@ First Floor:
   dialog: You're on the first floor.
   choice:
     dialog: Would you like to go upstairs, or stay on the floor you're on?
-    reprompt: Well?  Which door will it be?
+    reprompt: Well?  What will it be?
     intents:
       upstairs:
         samples:
