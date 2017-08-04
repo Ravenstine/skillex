@@ -67,18 +67,18 @@ Run tests with the `mocha` command in the root project folder.
 ## TODO
 
 - http requests
-- `go to pill:`
+- `go to pill:` **complete**
 - `condition:`
 - `card:`
 - `attributes:` w/ operators
-- template strings
+- template strings **complete**
 - `eval:` or `script:`
 - metadata section w/ `import:` **complete**
 - template labels
 - `audio:`
 - compilation/merging of custom slot types
 - linter/warning system to catch errors
-- `reprompt:`
+- `reprompt:` **complete**
 - full support of multi-language strings
 - session persistence
 - `video:`

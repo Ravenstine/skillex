@@ -4,8 +4,10 @@
 // into an intent-schema JSON that you can paste into the code editor
 // inside the Alexa Skills Kit.
 
-const pillBox = require('./lib/pills-loader')('./pills');
 
+const pillBox = require('./lib/pill-box')('./pills');
+
+// Each of the three AMAZON intents below are required.
 let intents   = {
   "AMAZON.CancelIntent": {
     "name": "AMAZON.CancelIntent",
@@ -45,10 +47,31 @@ function openLabel(label){
 
     mergedIntent.samples = mergedIntent.samples.concat(currentIntent.samples || []);
     mergedIntent.samples = Array.from(new Set(mergedIntent.samples));
+    mergedIntent.samples.map(sample => sample.replace(/\${/g, '{'));
 
-    Object.assign(mergedIntent.slots, currentIntent.slots);
+    // Object.assign(mergedIntent.slots, currentIntent.slots);
+
+    mergeSlots(mergedIntent.slots, currentIntent.slots);
 
   });
+}
+
+function mergeSlots(a, b){
+  if(!a || !b){ return; }
+  Object.keys(b).forEach((slotName) => {
+    let aSlot = a[slotName];
+    let bSlot = b[slotName];
+    if(!aSlot){
+      a[slotName] = Object.assign({}, bSlot);
+    } else if(!aSlot.type || (aSlot.type.match(/AMAZON\./) && (!bSlot.type || '').match(/AMAZON\./))) {
+      // only re-assign the slot type on the merged
+      // slot if there is no type defined to begin
+      // with, or if the new assignment is a custom
+      // slot type.  not sure why i made that decision
+      // but that's how it works right now so there.
+      aSlot.type = bSlot.type;
+    }
+  })
 }
 
 Object.keys(pillBox).forEach((key) => {
@@ -56,10 +79,14 @@ Object.keys(pillBox).forEach((key) => {
   openPill(pill);
 })
 
+let schema = {};
+
 let json = JSON.stringify({
   intents: Object.keys(intents).map((name) => {
     let intent   = intents[name];
-    intent.slots = []; // actually convert slots later, right now this is just to make things work
+    intent.slots = Object.keys(intent.slots || {}).map((slotName) => { 
+      return { name: slotName, type: intent.slots[slotName].type, samples: [] }; 
+    });
     return intent;
   }),
   // types: {},

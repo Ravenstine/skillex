@@ -12,7 +12,8 @@
     "coffeescript": "^1.12.7",
     "glob-fs": "^0.1.7",
     "js-yaml": "^3.9.0",
-    "node-config-yml": "^1.0.1"
+    "node-config-yml": "^1.0.1",
+    "pascal-case": "^2.0.1"
   },
   "devDependencies": {
     "mocha": "^3.4.2"

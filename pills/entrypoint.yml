@@ -1,61 +1,62 @@
 Intro:
   dialog: Welcome to Spooky House.  The object of this game is to get to the exit with treasure and not get killed. You enter the spooky house.
-  go to: FirstFloor
+  go to: First Floor
 
-FirstFloor:
+First Floor:
   dialog: You're on the first floor.
   choice:
     dialog: Would you like to go upstairs, or stay on the floor you're on?
+    reprompt: Well?  Which door will it be?
     intents:
-      UpstairsIntent:
+      upstairs:
         samples:
           - go upstairs
           - upstairs
         go to: Upstairs
-      DiningRoomIntent:
+      dining room:
         samples:
           - stay on the floor i'm on
           - stay on this floor
           - stay here
           - stay
-        go to: DiningRoom
+        go to: Dining Room
       AMAZON.StopIntent:
-        go to: ExitGame
+        go to: Exit Game
 
-ExitGame:
+Exit Game:
   dialog: goodbye
 
-DiningRoom:
+Dining Room:
   dialog: You enter the dining room.
   choice: 
     dialog: Would you like to go to the kitchen or the living room?
     intents:
-      KitchenIntent:
+      kitchen:
         samples:
           - go to the kitchen
           - the kitchen
           - kitchen
         go to: Kitchen
-      LivingRoomIntent:
+      living room:
         samples:
           - go to the living room
           - the living room
           - living room
-        go to: LivingRoom
+        go to: Living Room
 
 Upstairs:
   dialog: You go upstairs and see three doors.
   choice:
     dialog: Which door would you like to go in? 1, 2, or 3?
     intents:
-      DoorOneIntent:
+      door one:
         samples:
           - go to door one
           - open door one
           - door one
           - one
-        go to: GhostDoorDeath
-      DoorTwoIntent:
+        go to: Ghost Door Death
+      door two:
         samples:
           - go to door two
           - open door two
@@ -65,13 +66,13 @@ Upstairs:
           - open door three
           - door three
           - three
-        go to: GhostDoor
+        go to: Ghost Door
 
-GhostDoor:
+Ghost Door:
   dialog: You open the door and find a ghost. You are so scared you run downstairs to the front door.
-  go to: FirstFloor
+  go to: First Floor
 
-GhostDoorDeath:
+Ghost Door Death:
   dialog: You open the door and find a ghost. You are dead.
 
 Kitchen:
@@ -79,42 +80,42 @@ Kitchen:
   choice: 
     dialog: Do you want to eat something, or do you want to go back to the dining room?
     intents:
-      EatFoodIntent:
+      eat food:
         samples:
           - eat something
           - eat
-        go to: PoisonFoodDeath
-      DiningRoomIntent:
+        go to: Poison Food Death
+      dining room:
         samples:
           - go back to the dining room
           - back to the dining room
           - go to the dining room
           - the dining room
           - dining room
-        go to: DiningRoom
+        go to: Dining Room
 
-PoisonFoodDeath:
+Poison Food Death:
   dialog: The food is poisonous. You are dead.
 
-LivingRoom:
+Living Room:
   dialog: You enter the living room. 
   choice:
     dialog: Will you turn on the radio or go to the hallway?
     intents:
-      TurnOnRadioIntent:
+      turn on radio:
         samples:
           - i'll turn on the radio
           - turn on the radio
           - radio
-        go to: RadioDeath
-      HallwayIntent:
+        go to: Radio Death
+      hallway:
         samples:
           - go to the hallway
           - the hallway
           - hallway
         go to: Hallway
 
-RadioDeath:
+Radio Death:
   dialog: The radio electrocutes you. You are dead.
 
 Hallway:
@@ -122,24 +123,24 @@ Hallway:
   choice:
     dialog: Will you go to the next room or the exit?
     intents:
-      NextRoomIntent:
+      next room:
         samples:
           - go to the next room
           - the next room
-        go to: FoundTreasure
-      ExitIntent:
+        go to: Found Treasure
+      exit:
         samples:
           - the exit
           - exit
         condition:
           value: attributes.hasTreasure
           if true: 
-            go to: GameOver
+            go to: Game Over
           if false:
             dialog: There aren't that many doors.
             retry: true
 
-FoundTreasure:
+Found Treasure:
   dialog: You found some treasure!  You win.
   # attributes:
   #   hasTreasure: true
@@ -157,12 +158,12 @@ FoundTreasure:
   #       samples:
   #         - go to the next room
   #         - the next room
-  #       go to: GhostDoorDeath
+  #       go to: Ghost Door Death
 
-CantExit:
+Cant Exit:
   dialog: You cannot exit until you have treasure.
   go to: Hallway
 
-GameOver:
+Game Over:
   dialog: You managed to escape with the treasure.  You win!
 
