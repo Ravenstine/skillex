@@ -16,23 +16,23 @@ Every pill contains a set of labels describing specific states.  A label is mere
 This is an example of a label:
 
 ```yaml
-FirstFloor:
+First Floor:
   dialog: You enter the spooky house.
   choice:
     dialog: Would you like to go upstairs, or stay on the floor you're on?
     intents:
-      UpstairsIntent:
+      Upstairs:
         samples:
           - go upstairs
           - upstairs
         go to: Upstairs
-      DiningRoomIntent:
+      Dining Room:
         samples:
           - stay on the floor i'm on
           - stay on this floor
           - stay here
           - stay
-        go to: DiningRoom
+        go to: Dining Room
 ```
 
 ## Compiler
