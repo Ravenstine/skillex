@@ -20,6 +20,14 @@ let intents   = {
   "AMAZON.StopIntent": {
     "name": "AMAZON.StopIntent",
     "samples": []
+  },
+  "AMAZON.PauseIntent": {
+    "name": "AMAZON.StopIntent",
+    "samples": []
+  },
+  "AMAZON.ResumeIntent": {
+    "name": "AMAZON.StopIntent",
+    "samples": []
   }
 };
 

@@ -1,0 +1,31 @@
+Start:
+  intents:
+    AMAZON.StopIntent:
+      go to: Exit Skill
+    AMAZON.PauseIntent:
+      go to: Exit Skill
+    ?: 
+      go to: Intro
+
+Intro:
+  dialog: Hi, I'm Garcetti Bot.
+  choice:
+    dialog: Want to hear the latest about Eric Garcetti?
+    intents:
+      AMAZON.YesIntent:
+        go to: Garcetti Story
+      AMAZON.NoIntent:
+        go to: Exit Skill
+
+Exit Skill:
+  dialog: Goodbye.
+  audio: stop
+
+Garcetti Story:
+  web request: 
+    url: http://www.scpr.org/api/v3/articles?query=garcetti
+    script: webResponse.articles.filter((a) -> a.audio.length).map((a) -> a.audio?[0]?.url)?[0]
+  error dialog: Uh oh.  I had trouble finding audio about Eric Garcetti.  Sorry.
+  dialog: Here's the latest on Eric Garcetti.
+  audio: ${webResponse}
+

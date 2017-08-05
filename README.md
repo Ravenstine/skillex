@@ -3,10 +3,9 @@ Skills In Pills
 
 A nicer way to write Alexa skills. (WIP)
 
-- Write fun & useful skills through human-readable configuration.
+- Rapidly prototype fun & useful skills through human-readable configuration.
 - Easily handle many complex states within a skill.
-- Define your intents within your skill configuration.
-- Use [SSML](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/speech-synthesis-markup-language-ssml-reference) as the default output speech type.
+- Compile your intent schema from your skill configuration.
 
 ## Structure
 
@@ -66,22 +65,23 @@ Run tests with the `mocha` command in the root project folder.
 
 ## TODO
 
-- http requests
+- web request **complete**
 - `go to pill:` **complete**
+- `go to random:`
 - `condition:`
 - `card:`
 - `attributes:` w/ operators
 - template strings **complete**
-- `eval:` or `script:`
+- `script:` **complete**
 - metadata section w/ `import:` **complete**
 - template labels
-- `audio:`
+- `audio:` **complete**
 - compilation/merging of custom slot types
 - linter/warning system to catch errors
 - `reprompt:` **complete**
 - full support of multi-language strings
 - session persistence
 - `video:`
-
-
+- utterance expander
+- intent wildcard **complete**
 
