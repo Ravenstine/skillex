@@ -20,7 +20,7 @@ First Floor:
           - stay here
           - stay
         go to: Dining Room
-      AMAZON.StopIntent:
+      stop:
         go to: Exit Game
 
 Exit Game:

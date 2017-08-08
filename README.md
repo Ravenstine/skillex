@@ -84,4 +84,6 @@ Run tests with the `mocha` command in the root project folder.
 - `video:`
 - utterance expander
 - intent wildcard **complete**
-
+- `none dialog:` for web request **complete**
+- directive function access inside of `script:`
+- automatic mapping of simpler intent names to AMAZON intent names **complete**

@@ -1,31 +1,54 @@
+# Start:
+#   intents:
+#     AMAZON.StopIntent:
+#       go to: Exit Skill
+#     AMAZON.PauseIntent:
+#       go to: Exit Skill
+#     ?: 
+#       go to: Intro
+
 Start:
-  intents:
-    AMAZON.StopIntent:
-      go to: Exit Skill
-    AMAZON.PauseIntent:
-      go to: Exit Skill
-    ?: 
-      go to: Intro
+  choice:
+    intents:
+      stop:
+        go to: Exit Skill
+      pause:
+        go to: Exit Skill
+      ?: 
+        go to: Intro
 
 Intro:
   dialog: Hi, I'm Garcetti Bot.
   choice:
-    dialog: Want to hear the latest about Eric Garcetti?
+    dialog: Want to hear the latest stories that mention Mayor Garcetti?
     intents:
-      AMAZON.YesIntent:
+      yes:
         go to: Garcetti Story
-      AMAZON.NoIntent:
+      no:
         go to: Exit Skill
+
+Garcetti Story:
+  assign:
+    - set:
+        reads: 1
+    - increment:
+      reads: 1
+    - erase:
+    - append:
+    - prepend:
+    - multiply:
+    - min:
+    - max:
+
+  web request:
+    url: http://www.scpr.org/api/v3/articles?query=garcetti&types=news
+    script: webResponse.articles.filter((a) -> a.audio.length).map((a) -> a.audio[0].url)?[0]
+    none dialog: I couldn't find any recent stories mentioning Eric Garcetti.
+  error dialog: Uh oh.  I had trouble finding audio about Eric Garcetti.  Sorry.
+  dialog: Here's the latest on Eric Garcetti.
+  audio: ${webResponse}
 
 Exit Skill:
   dialog: Goodbye.
   audio: stop
-
-Garcetti Story:
-  web request: 
-    url: http://www.scpr.org/api/v3/articles?query=garcetti
-    script: webResponse.articles.filter((a) -> a.audio.length).map((a) -> a.audio?[0]?.url)?[0]
-  error dialog: Uh oh.  I had trouble finding audio about Eric Garcetti.  Sorry.
-  dialog: Here's the latest on Eric Garcetti.
-  audio: ${webResponse}
 
