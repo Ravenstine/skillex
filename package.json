@@ -9,6 +9,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "chrono-node": "^1.3.5",
     "coffeescript": "^1.12.7",
     "follow-redirects": "^1.2.4",
     "glob-fs": "^0.1.7",

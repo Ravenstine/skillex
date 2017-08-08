@@ -70,7 +70,7 @@ Run tests with the `mocha` command in the root project folder.
 - `go to random:`
 - `condition:`
 - `card:`
-- `attributes:` w/ operators
+- `assign:` w/ operators **complete**
 - template strings **complete**
 - `script:` **complete**
 - metadata section w/ `import:` **complete**
