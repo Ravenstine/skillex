@@ -1,2 +1,39 @@
 Start:
+  dialog: Welcome to the test of assignments.
+  choice:
+    dialog: Pick a number between 1 and 10.
+    intents:
+      number:
+        assign:
+          slot:
+            ourNumber: number
+        samples:
+          - ${number}
+          - the number ${number}
+        slots:
+          number:
+            type: AMAZON.NUMBER
+        go to: Next Number
+
+Next Number:
+  choice:
+    dialog: Okay, now pick another number.
+    intents:
+      number:
+        assign:
+          slot:
+            secondNumber: number
+          increment:
+            ourNumber: ${attributes.secondNumber}
+        samples:
+          - ${number}
+          - the number ${number}
+        slots:
+          number:
+            type: AMAZON.NUMBER
+        go to: Total
+
+Total:
+  dialog: The result is ${attributes.ourNumber}.
+
   

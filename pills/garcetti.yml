@@ -1,12 +1,3 @@
-# Start:
-#   intents:
-#     AMAZON.StopIntent:
-#       go to: Exit Skill
-#     AMAZON.PauseIntent:
-#       go to: Exit Skill
-#     ?: 
-#       go to: Intro
-
 Start:
   choice:
     intents:
@@ -28,18 +19,6 @@ Intro:
         go to: Exit Skill
 
 Garcetti Story:
-  assign:
-    - set:
-        reads: 1
-    - increment:
-      reads: 1
-    - erase:
-    - append:
-    - prepend:
-    - multiply:
-    - min:
-    - max:
-
   web request:
     url: http://www.scpr.org/api/v3/articles?query=garcetti&types=news
     script: webResponse.articles.filter((a) -> a.audio.length).map((a) -> a.audio[0].url)?[0]

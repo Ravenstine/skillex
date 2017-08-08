@@ -13,7 +13,11 @@ describe('operators', function(){
       objectTest: {},
       dateTest: undefined,
       nullText: null,
-      eraseTest: 'erase me!'
+      eraseTest: 'erase me!',
+      expressionTest: undefined
+    },
+    slots: {
+      foo: 'bar'
     }
   };
 
@@ -91,5 +95,24 @@ describe('operators', function(){
     let isDate = Object.prototype.toString.call(context.attributes.dateTest) === '[object Date]';
     assert.equal(isDate, true);
   });
+
+  it('can assign from an expression', function(){
+    assign({
+      expression: {
+        expressionTest: '40 + 2'
+      }
+    }, context);
+    assert.equal(context.attributes.expressionTest, 42);
+  });
+
+  it('can assign from an intent slot', function(){
+    assign({
+      slot: {
+        baz: 'foo'
+      }
+    }, context);
+    assert.equal(context.attributes.baz, 'bar');
+  });
+
 
 });

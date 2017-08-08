@@ -57,7 +57,7 @@ function openLabel(label){
     mergedIntent.samples = mergedIntent.samples.concat(currentIntent.samples || []);
     mergedIntent.samples = Array.from(new Set(mergedIntent.samples));
     // remove our own template string format
-    mergedIntent.samples.map(sample => sample.replace(/\${/g, '{'));
+    mergedIntent.samples = mergedIntent.samples.map(sample => sample.replace(/\${/g, '{'));
 
     // Object.assign(mergedIntent.slots, currentIntent.slots);
 

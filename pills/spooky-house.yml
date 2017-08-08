@@ -142,8 +142,9 @@ Hallway:
 
 Found Treasure:
   dialog: You found some treasure!  You win.
-  # attributes:
-  #   hasTreasure: true
+  # assign:
+  #   set:
+  #     hasTreasure: true
   # choice: 
   #   dialog: Will you go back to the hall or to the next room?
   #   intents:
