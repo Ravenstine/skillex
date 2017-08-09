@@ -68,8 +68,8 @@ Run tests with the `mocha` command in the root project folder.
 - web request **complete**
 - `go to pill:` **complete**
 - `go to random:`
-- `condition:`
-- `card:`
+- `condition:` **complete enough**
+- `card:` **complete**
 - `assign:` w/ operators **complete**
 - template strings **complete**
 - `script:` **complete**
@@ -82,8 +82,9 @@ Run tests with the `mocha` command in the root project folder.
 - full support of multi-language strings
 - session persistence
 - `video:`
-- utterance expander
+- utterance expander **complete**
 - intent wildcard **complete**
 - `none dialog:` for web request **complete**
 - directive function access inside of `script:`
 - automatic mapping of simpler intent names to AMAZON intent names **complete**
+

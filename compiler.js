@@ -6,6 +6,7 @@
 
 
 const pillBox = require('./lib/pill-box')('./pills');
+const utteranceExpander = require('intent-utterance-expander');
 
 // Each of the three AMAZON intents below are required.
 let intents   = {
@@ -41,8 +42,8 @@ function openPill(pill) {
   });
 }
 
-function openLabel(label){
-  let currentIntents = (label.choice || {}).intents || {};
+function parseIntents(currentIntents){
+  // expects an intents object, usually from a choice
   Object.keys(currentIntents).forEach((intentName) => {
     intents[intentName] = intents[intentName] || {
       name: intentName,
@@ -50,11 +51,15 @@ function openLabel(label){
       slots: {}
     };
 
-    let currentIntent = currentIntents[intentName];
+    let currentIntent   = currentIntents[intentName];
 
-    let mergedIntent  = intents[intentName];
+    let mergedIntent    = intents[intentName];
 
-    mergedIntent.samples = mergedIntent.samples.concat(currentIntent.samples || []);
+    let currentSamples  = currentIntent.samples || [];
+
+    let expandedSamples = utteranceExpander(currentSamples)
+
+    mergedIntent.samples = mergedIntent.samples.concat.apply([], expandedSamples);
     mergedIntent.samples = Array.from(new Set(mergedIntent.samples));
     // remove our own template string format
     mergedIntent.samples = mergedIntent.samples.map(sample => sample.replace(/\${/g, '{'));
@@ -63,7 +68,18 @@ function openLabel(label){
 
     mergeSlots(mergedIntent.slots, currentIntent.slots);
 
+    mergeTypes(mergedIntent.slots);
+
   });
+}
+
+
+function openLabel(label){
+  // parse label intents
+  parseIntents(label.intents || {});
+  // parse choice intents
+  parseIntents((label.choice || {}).intents || {});
+
 }
 
 function mergeSlots(a, b){
@@ -80,8 +96,15 @@ function mergeSlots(a, b){
       // slot type.  not sure why i made that decision
       // but that's how it works right now so there.
       aSlot.type = bSlot.type;
+      if(aSlot.type){
+        aSlot.values = (aSlot.values || []).concat(bSlot.values || []);
+      }
     }
   })
+}
+
+function mergeTypes(){
+
 }
 
 Object.keys(pillBox).forEach((key) => {
@@ -89,17 +112,40 @@ Object.keys(pillBox).forEach((key) => {
   openPill(pill);
 })
 
+// construct final schema
+
 let schema = {};
 
 let json = JSON.stringify({
   intents: Object.keys(intents).map((name) => {
-    let intent   = intents[name];
+    let intent   = Object.assign({}, intents[name]);
     intent.slots = Object.keys(intent.slots || {}).map((slotName) => { 
       return { name: slotName, type: intent.slots[slotName].type, samples: [] }; 
     });
     return intent;
   }),
-  // types: {},
+  types: Object.keys(intents).map((name) => {
+    let intent   = intents[name];
+    return Object.keys(intent.slots || {})
+      .filter(slotName => intent.slots[slotName].type) // ignore slots with no type specified
+      .map((slotName) => {
+        let slot   = intent.slots[slotName];
+        if(slot.type){
+          return { 
+            name: slot.type,
+            values: (slot.values || []).map((v) => {
+              return {
+                id: null,
+                name: {
+                  value: v,
+                  synonyms: []
+                }
+              }
+            })
+          }
+        }
+      });
+  }).filter(a => a.length).pop(),
   // dialog: {
   //   version: "1.0",
   //   intents: {}

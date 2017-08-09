@@ -9,19 +9,30 @@ describe('operators', function(){
       setTest: undefined,
       stringTest: 'hello',
       numberTest: 0,
+      stringNumberTest: '3',
       arrayTest: [1,2,3],
       objectTest: {},
       dateTest: undefined,
       nullText: null,
       eraseTest: 'erase me!',
-      expressionTest: undefined
+      expressionTest: undefined,
+      booleanTest: undefined
     },
     slots: {
       foo: 'bar'
     }
   };
 
-  it('increments an attribute', function(){
+  it('sets a boolean', function(){
+    assign({
+      set: {
+        booleanTest: true
+      }
+    }, context);
+    assert.equal(context.attributes.booleanTest, true);
+  })
+
+  it('increments a number attribute', function(){
     assign({
       increment: {
         numberTest: 3
@@ -30,13 +41,31 @@ describe('operators', function(){
     assert.equal(context.attributes.numberTest, 3);
   });
 
+  it('increments a string attribute', function(){
+    assign({
+      increment: {
+        stringNumberTest: 4
+      }
+    }, context);
+    assert.equal(context.attributes.stringNumberTest, 7);
+  });
+
+  it('increments a number attribute with a string', function(){
+    assign({
+      increment: {
+        numberTest: '2'
+      }
+    }, context);
+    assert.equal(context.attributes.numberTest, 5);
+  });
+
   it('increments a non-zero attribute', function(){
     assign({
       increment: {
         numberTest: 3
       }
     }, context);
-    assert.equal(context.attributes.numberTest, 6);
+    assert.equal(context.attributes.numberTest, 8);
   });
 
   it('decrements an attribute', function(){
@@ -45,7 +74,7 @@ describe('operators', function(){
         numberTest: -2
       }
     }, context);
-    assert.equal(context.attributes.numberTest, 4);
+    assert.equal(context.attributes.numberTest, 6);
   });
 
   it('does not try to increment a non-number', function(){
@@ -114,5 +143,5 @@ describe('operators', function(){
     assert.equal(context.attributes.baz, 'bar');
   });
 
-
 });
+

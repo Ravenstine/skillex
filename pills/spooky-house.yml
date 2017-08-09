@@ -130,6 +130,7 @@ Hallway:
         go to: Found Treasure
       Exit:
         samples:
+          - go to the exit
           - the exit
           - exit
         condition:
@@ -138,28 +139,28 @@ Hallway:
             go to: Game Over
           if false:
             dialog: There aren't that many doors.
-            retry: true
+            go to: Hallway
 
 Found Treasure:
-  dialog: You found some treasure!  You win.
-  # assign:
-  #   set:
-  #     hasTreasure: true
-  # choice: 
-  #   dialog: Will you go back to the hall or to the next room?
-  #   intents:
-  #     HallwayIntent:
-  #       samples:
-  #         - back to the hallway
-  #         - go to the hallway
-  #         - the hallway
-  #         - hallway
-  #       go to: Hallway
-  #     NextRoomIntent:
-  #       samples:
-  #         - go to the next room
-  #         - the next room
-  #       go to: Ghost Door Death
+  dialog: You found some treasure!
+  assign:
+    set:
+      hasTreasure: true
+  choice: 
+    dialog: Will you go back to the hall or to the next room?
+    intents:
+      Hallway:
+        samples:
+          - back to the hallway
+          - go to the hallway
+          - the hallway
+          - hallway
+        go to: Hallway
+      Next Room:
+        samples:
+          - go to the next room
+          - the next room
+        go to: Ghost Door Death
 
 Cant Exit:
   dialog: You cannot exit until you have treasure.

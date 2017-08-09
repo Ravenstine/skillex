@@ -1,0 +1,42 @@
+# Intro:
+#   dialog: | 
+#     Welcome to the KPCC news quiz.
+#     I'm going to ask you some questions about SoCal news and current events.
+#   choice:
+#     dialog: Want to get started?
+#     intents:
+#       yes:
+#         dialog: Great!
+#         go to: First Question
+#       no:
+#         go to: Exit Game
+
+# First Question:
+#   dialog: Here's your first question.
+#   choice:
+#     dialog: David Binkle, former food services director, embezzled $65,000 from which school district?
+#     intents:
+#       answer:
+#         samples:
+#           - ( |maybe|i think|um|uh) ${answer}
+#         slots:
+#           answer:
+#             type: schoolDistrictAnswer
+#             values:
+#               - l.a. unified school district
+        
+#       i dont know:
+#         samples:
+#           - i don't know
+#           - i dunno
+#           - i'm not sure
+#         dialog: That's a shame.
+#         go to:
+#       ?:
+#         dialog: I'm sorry.  The correct answer was the L.A. Unified School District.
+#         go to:
+
+# Exit Game:
+#   dialog: See ya later.
+
+

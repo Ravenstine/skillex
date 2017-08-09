@@ -1,0 +1,60 @@
+# Intro:
+#   dialog: |
+#     Welcome to endless trivia!  
+#     I will ask you multiple choice questions on general knowledge.  
+#     Would you like to get started?
+#   choice:
+#     intents:
+#       yes:
+#         go to: Get Question
+#       no:
+#         go to: Exit Game
+
+# Get Question:
+#   web request:
+#     url: https://opentdb.com/api.php?amount=1&category=9&difficulty=medium&type=multiple
+#     script: |
+#       letters = ['A', 'B', 'C', 'D']
+#       result  = webResponse.results[0]
+#       attributes.answers  = result.incorrect_answers.concat(result.correct_answer).sort -> if 4 * Math.random() > 2 then 1 else -1
+#       attributes.answer   = result.correct_answer
+#       attributes.question = result.question + " " + attributes.answers.map((answer, i) -> "#{letters[i]}: #{answer}").join(", ")
+#   go to: Read Question
+
+# Read Question:
+#   choice:
+#     dialog: ${attributes.question}
+#     reprompt: Let me repeat that. ${attributes.question}
+#     intents:
+#       multiple choice:
+#         samples:
+#           - ( |answer|choice) (a|b|c|d)
+#         slots:
+#           answerLetter:
+#             type: MultipleChoice
+#             values:
+#               - A
+#               - B
+#               - C
+#               - D
+#               - E
+#               - F
+#               - G
+#         go to: Evaluate Answer
+#       repeat:
+#         go to: Read Question
+#       stop:
+#         go to: Exit Game
+
+# Evaluate Answer:
+#   condition:
+#     expression: 
+
+# Correct Answer:
+#   dialog: Oops, I'm brain dead.
+
+# # IncorrectAnswer: 
+
+# Exit Game:
+#   dialog: So long for now!
+

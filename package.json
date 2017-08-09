@@ -13,8 +13,10 @@
     "coffeescript": "^1.12.7",
     "follow-redirects": "^1.2.4",
     "glob-fs": "^0.1.7",
+    "intent-utterance-expander": "0.0.6",
     "js-yaml": "^3.9.0",
     "md5": "^2.2.1",
+    "moment": "^2.18.1",
     "node-config-yml": "^1.0.1",
     "parse-uri": "^1.0.0",
     "pascal-case": "^2.0.1"

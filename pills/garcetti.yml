@@ -5,7 +5,7 @@ Start:
         go to: Exit Skill
       pause:
         go to: Exit Skill
-      ?: 
+      ?:
         go to: Intro
 
 Intro:

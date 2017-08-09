@@ -18,6 +18,12 @@ describe('operators', function(){
     let evaluation = evalString('This is a ${undefined} string.', context);
     assert.equal(evaluation, 'This is a  string.');
   });
+
+  it('formats date strings to readable format', function(){
+    let evaluation = evalString('It is currently ${new Date()}', context);
+    let match      = evaluation.match(/\d{1,2} \d{1,2} [am|pm]{2} on [A-z]+ \d{1,2} \d{4}/) ? true : false;
+    assert.equal(match, true);
+  })
   
 });
 
