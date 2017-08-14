@@ -24,7 +24,7 @@ describe('operators', function(){
   };
 
   it('sets a boolean', function(){
-    assign({
+    assign(context.attributes, {
       set: {
         booleanTest: true
       }
@@ -33,7 +33,7 @@ describe('operators', function(){
   })
 
   it('increments a number attribute', function(){
-    assign({
+    assign(context.attributes, {
       increment: {
         numberTest: 3
       }
@@ -42,7 +42,7 @@ describe('operators', function(){
   });
 
   it('increments a string attribute', function(){
-    assign({
+    assign(context.attributes, {
       increment: {
         stringNumberTest: 4
       }
@@ -51,7 +51,7 @@ describe('operators', function(){
   });
 
   it('increments a number attribute with a string', function(){
-    assign({
+    assign(context.attributes, {
       increment: {
         numberTest: '2'
       }
@@ -60,7 +60,7 @@ describe('operators', function(){
   });
 
   it('increments a non-zero attribute', function(){
-    assign({
+    assign(context.attributes, {
       increment: {
         numberTest: 3
       }
@@ -69,7 +69,7 @@ describe('operators', function(){
   });
 
   it('decrements an attribute', function(){
-    assign({
+    assign(context.attributes, {
       increment: {
         numberTest: -2
       }
@@ -79,7 +79,7 @@ describe('operators', function(){
 
   it('does not try to increment a non-number', function(){
     let originalObject = context.attributes.objectTest;
-    assign({
+    assign(context.attributes, {
       increment: {
         objectTest: -2
       }
@@ -89,7 +89,7 @@ describe('operators', function(){
 
   it('erases attributes', function(){
     let originalObject = context.attributes.objectTest;
-    assign({
+    assign(context.attributes, {
       erase: {
         eraseTest: undefined 
       }
@@ -98,7 +98,7 @@ describe('operators', function(){
   });
 
   it('appends items to an array', function(){
-    assign({
+    assign(context.attributes, {
       append: {
         arrayTest: 4 
       }
@@ -107,7 +107,7 @@ describe('operators', function(){
   });
 
   it('prepends items to an array', function(){
-    assign({
+    assign(context.attributes, {
       prepend: {
         arrayTest: 5
       }
@@ -116,7 +116,7 @@ describe('operators', function(){
   });
 
   it('can assign a date', function(){
-    assign({
+    assign(context.attributes, {
       date: {
         dateTest: 'today'
       }
@@ -126,7 +126,7 @@ describe('operators', function(){
   });
 
   it('can assign from an expression', function(){
-    assign({
+    assign(context.attributes, {
       expression: {
         expressionTest: '40 + 2'
       }
@@ -135,7 +135,7 @@ describe('operators', function(){
   });
 
   it('can assign from an intent slot', function(){
-    assign({
+    assign(context.attributes, {
       slot: {
         baz: 'foo'
       }

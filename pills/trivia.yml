@@ -1,60 +1,85 @@
-# Intro:
-#   dialog: |
-#     Welcome to endless trivia!  
-#     I will ask you multiple choice questions on general knowledge.  
-#     Would you like to get started?
-#   choice:
-#     intents:
-#       yes:
-#         go to: Get Question
-#       no:
-#         go to: Exit Game
+Intro:
+  dialog: |
+    Welcome to endless trivia!  
+    I will ask you multiple choice questions on general knowledge.  
+    Would you like to get started?
+  choice:
+    intents:
+      yes:
+        go to: Get Question
+      no:
+        go to: Exit Game
+      stop:
+        go to: Exit Game
 
-# Get Question:
-#   web request:
-#     url: https://opentdb.com/api.php?amount=1&category=9&difficulty=medium&type=multiple
-#     script: |
-#       letters = ['A', 'B', 'C', 'D']
-#       result  = webResponse.results[0]
-#       attributes.answers  = result.incorrect_answers.concat(result.correct_answer).sort -> if 4 * Math.random() > 2 then 1 else -1
-#       attributes.answer   = result.correct_answer
-#       attributes.question = result.question + " " + attributes.answers.map((answer, i) -> "#{letters[i]}: #{answer}").join(", ")
-#   go to: Read Question
+Get Question:
+  web request:
+    url: https://opentdb.com/api.php?amount=1&type=multiple&category=17
+    script: |
+      letters                        = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+      result                         = results[0]
+      attributes.answers             = _.shuffle(result.incorrect_answers.concat(result.correct_answer))
+      attributes.answer              = result.correct_answer
+      attributes.correctAnswerLetter = letters[attributes.answers.indexOf(attributes.answer)]
+      formattedAnswers               = attributes.answers.map((answer, i) -> "<emphasis level=\"moderate\">#{letters[i]}</emphasis>: #{answer}").join(", ")
+      attributes.question            = "<prosody rate=\"slow\">#{result.question} <break time=\"0.5s\"/> #{formattedAnswers} </prosody>"
+  go to: Read Question
 
-# Read Question:
-#   choice:
-#     dialog: ${attributes.question}
-#     reprompt: Let me repeat that. ${attributes.question}
-#     intents:
-#       multiple choice:
-#         samples:
-#           - ( |answer|choice) (a|b|c|d)
-#         slots:
-#           answerLetter:
-#             type: MultipleChoice
-#             values:
-#               - A
-#               - B
-#               - C
-#               - D
-#               - E
-#               - F
-#               - G
-#         go to: Evaluate Answer
-#       repeat:
-#         go to: Read Question
-#       stop:
-#         go to: Exit Game
+Read Question:
+  choice:
+    dialog: ${question}
+    reprompt: Let me repeat that. ${question}
+    intents:
+      ( |answer|choice) ${answerLetter}:
+        slots:
+          answerLetter:
+            type: MultipleChoice
+            values:
+              - a
+              - b
+              - c
+              - d
+              - e
+              - f
+              - g
+        go to: Evaluate Answer
+      ( |i|i'm) (don't know|dunno|not sure):
+        go to: I Don't Know
+      next:
+        samples:
+          - skip
+          - next question
+          - skip this question
+        go to: Get Question
+      repeat:
+        go to: Read Question
+      stop:
+        go to: Exit Game
 
-# Evaluate Answer:
-#   condition:
-#     expression: 
+Evaluate Answer:
+  dialog: You said ${answerLetter}, ${yourAnswer}.
+  script: |
+    answerIndex = ['a', 'b', 'c', 'd', 'e', 'f', 'g'].indexOf(answerLetter.strict)
+    attributes.yourAnswer = if (answerIndex > -1) then (answers or [])[answerIndex] else ''
+  condition:
+    expression: answerLetter.strict is correctAnswerLetter
+    if true:
+      go to: Correct Answer
+    if false:
+      go to: Wrong Answer
 
-# Correct Answer:
-#   dialog: Oops, I'm brain dead.
+Correct Answer:
+  dialog: That's correct!
+  go to: Get Question
 
-# # IncorrectAnswer: 
+I Don't Know:
+  dialog: The correct answer is ${correctAnswerLetter}, ${answer}.
+  go to: Get Question
 
-# Exit Game:
-#   dialog: So long for now!
+Wrong Answer:
+  dialog: That is incorrect.  The correct answer is ${correctAnswerLetter}, ${answer}.
+  go to: Get Question
+
+Exit Game:
+  dialog: So long for now!
 

@@ -74,7 +74,7 @@ Run tests with the `mocha` command in the root project folder.
 - template strings **complete**
 - `script:` **complete**
 - metadata section w/ `import:` **complete**
-- template labels
+- template labels **complete**
 - `audio:` **complete**
 - compilation/merging of custom slot types
 - linter/warning system to catch errors
@@ -87,4 +87,10 @@ Run tests with the `mocha` command in the root project folder.
 - `none dialog:` for web request **complete**
 - directive function access inside of `script:`
 - automatic mapping of simpler intent names to AMAZON intent names **complete**
+- automagically guess built-in slot types based on slot names **complete**
+- encrypted attributes
+- simple slot value extraction **complete**
+- your intent names are also your sample utterances **complete**
+- `require slots:`
+- `temp:` **complete**
 
