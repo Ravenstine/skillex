@@ -1,21 +1,3 @@
-Override:
-  go to pill: animal
-
-# Intro:
-#   dialog: Welcome to the Skills in Pills demo.  Which pill do you want to swallow?
-#   choice:
-#     intents:
-#       calculator:
-#         go to pill: big-5
-#       spooky house:
-#         go to pill: spooky-house
-#       garcetti:
-#         go to pill: garcetti
-#       trivia:
-#         go to pill: trivia
-#       stop:
-#         go to: Exit Skill
-
-# Exit Skill:
-#   dialog: Goodbye.
+Intro:
+  dialog: Congratulations!  You've successuflly run your first skill with pills.
 
