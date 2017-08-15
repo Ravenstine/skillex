@@ -249,6 +249,10 @@ Testing uses [Mocha](https://github.com/mochajs/mocha).  It's also kinda horsesh
 
 Run tests with the `mocha` command in the root project folder.
 
+## HALP
+
+Help would most definitely be appreciated!  If you've forked the repo and added your own features, don't hesitate to make a pull request.  Assistance with documentation, as well as discussion in [issues](https://github.com/ravenstine/skills-in-pills/issues) would be of great help.
+
 ## TODO
 
 - web request **complete**
@@ -280,4 +284,8 @@ Run tests with the `mocha` command in the root project folder.
 - `require slots:`
 - `temp:` **complete**
 - `pluck:` **complete**
+
+## License
+
+See [LICENSE.txt](https://github.com/Ravenstine/skills-in-pills/blob/master/LICENSE.txt).
 
