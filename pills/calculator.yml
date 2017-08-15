@@ -1,66 +1,66 @@
-## Just a really dumb calculator.
+# ## Just a really dumb calculator.
 
-Intro:
-  intents:
-    ( |what's|calculate) ${firstNumber:AMAZON.NUMBER} ${operator} ${secondNumber:AMAZON.NUMBER}:
-      go to: Validate
-    ?:
-      go to: Question
+# Intro:
+#   intents:
+#     ( |what's|calculate) ${firstNumber:AMAZON.NUMBER} ${operator} ${secondNumber:AMAZON.NUMBER}:
+#       go to: Validate
+#     ?:
+#       go to: Question
 
-Question:
-  choice:
-    dialog: What would you like to calculate?
-    intents:
-      ( |what's|calculate) ${firstNumber:AMAZON.NUMBER} ${operator} ${secondNumber:AMAZON.NUMBER}:
-        slots:
-          operator:
-            type: Operator
-            values:
-              - value: +
-                synonyms: 
-                  - plus
-              - value: '-'
-                synonyms: 
-                  - minus
-              - value: x
-                synonyms: 
-                  - times
-                  - multiplied by
-              - value: /
-                synonyms:
-                  - divided by
-        go to: Validate
-      I don't know:
-        go to: Exit Skill
-      stop:
-        go to: Exit Skill
-      help:
-        go to: Help
+# Question:
+#   choice:
+#     dialog: What would you like to calculate?
+#     intents:
+#       ( |what's|calculate) ${firstNumber:AMAZON.NUMBER} ${operator} ${secondNumber:AMAZON.NUMBER}:
+#         slots:
+#           operator:
+#             type: Operator
+#             values:
+#               - value: +
+#                 synonyms: 
+#                   - plus
+#               - value: '-'
+#                 synonyms: 
+#                   - minus
+#               - value: x
+#                 synonyms: 
+#                   - times
+#                   - multiplied by
+#               - value: /
+#                 synonyms:
+#                   - divided by
+#         go to: Validate
+#       I don't know:
+#         go to: Exit Skill
+#       stop:
+#         go to: Exit Skill
+#       help:
+#         go to: Help
 
-Help:
-  dialog: I can do addition, subtraction, multiplication, and division.  For example, you can say "1 plus 1", or "10 divided by 5".
-  go to: Intro
+# Help:
+#   dialog: I can do addition, subtraction, multiplication, and division.  For example, you can say "1 plus 1", or "10 divided by 5".
+#   go to: Intro
       
-Validate:
-  condition:
-    expression: firstNumber and operator.strict and secondNumber
-    if true:
-      go to: Calculate
-    if false:
-      go to: Don't Understand
+# Validate:
+#   condition:
+#     expression: firstNumber and operator.strict and secondNumber
+#     if true:
+#       go to: Calculate
+#     if false:
+#       go to: Don't Understand
 
-Calculate:
-  temp:
-    expression:
-      # all because alexa won't accept asterisks
-      # as a slot type value in the intent schema. arrrgggg
-      result: ${firstNumber} ${operator.strict.replace('x', '*')} ${secondNumber}
-  dialog: The result is ${result}.
+# Calculate:
+#   temp:
+#     expression:
+#       # all because alexa won't accept asterisks
+#       # as a slot type value in the intent schema. arrrgggg
+#       result: ${firstNumber} ${operator.strict.replace('x', '*')} ${secondNumber}
+#   dialog: The result is ${result}.
 
-Don't Understand:
-  dialog: I don't understand what you said.
-  go to: Intro
+# Don't Understand:
+#   dialog: I don't understand what you said.
+#   go to: Intro
 
-Exit Skill:
-  dialog: Seeya later.
+# Exit Skill:
+#   dialog: Seeya later.
 

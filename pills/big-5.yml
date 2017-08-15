@@ -1,126 +1,126 @@
-Intro:
-  dialog: Welcome to the Big 5 personality quiz.
-  go to: Initialize
+# Intro:
+#   dialog: Welcome to the Big 5 personality quiz.
+#   go to: Initialize
 
-Initialize:
-  assign:
-    set:
-      agreeableness: 0
-      agreeableness_counter: 0
-      agreeableness_reverse: 0
-      agreeableness_reverse_counter: 0
+# Initialize:
+#   assign:
+#     set:
+#       agreeableness: 0
+#       agreeableness_counter: 0
+#       agreeableness_reverse: 0
+#       agreeableness_reverse_counter: 0
 
-      conscientiousness: 0
-      conscientiousness_counter: 0
-      conscientiousness_reverse: 0
-      conscientiousness_reverse_counter: 0
+#       conscientiousness: 0
+#       conscientiousness_counter: 0
+#       conscientiousness_reverse: 0
+#       conscientiousness_reverse_counter: 0
 
-      openness: 0
-      openness_counter: 0
-      openness_reverse: 0
-      openness_reverse_counter: 0
+#       openness: 0
+#       openness_counter: 0
+#       openness_reverse: 0
+#       openness_reverse_counter: 0
 
-      extraversion: 0
-      extraversion_counter: 0
-      extraversion_reverse: 0
-      extraversion_reverse_counter: 0
+#       extraversion: 0
+#       extraversion_counter: 0
+#       extraversion_reverse: 0
+#       extraversion_reverse_counter: 0
 
-      neuroticism: 0
-      neuroticism_counter: 0
-      neuroticism_reverse: 0
-      neuroticism_reverse_counter: 0
+#       neuroticism: 0
+#       neuroticism_counter: 0
+#       neuroticism_reverse: 0
+#       neuroticism_reverse_counter: 0
 
-  go to: Party Question
+#   go to: Party Question
 
-Party Question:
-  choice: 
-    dialog: Are you the life of the party?
-    intents:
-      yes:
-        assign:
-          increment:
-            extraversion: 1
-            extraversion_counter: 1
-      no: 
-        assign:
-          increment:
-            extraversion_reverse: 1
-            extraversion_reverse_counter: 1
-      stop:
-        go to: Exit Game
-  go to: Concern Question
+# Party Question:
+#   choice: 
+#     dialog: Are you the life of the party?
+#     intents:
+#       yes:
+#         assign:
+#           increment:
+#             extraversion: 1
+#             extraversion_counter: 1
+#       no: 
+#         assign:
+#           increment:
+#             extraversion_reverse: 1
+#             extraversion_reverse_counter: 1
+#       stop:
+#         go to: Exit Game
+#   go to: Concern Question
 
-Concern Question:
-  choice: 
-    dialog: Do you feel little concern for others?
-    intents:
-      yes:
-        assign:
-          increment:
-            agreeableness: 1
-            agreeableness_counter: 1
-      no: 
-        assign:
-          increment:
-            agreeableness_reverse: 1
-            agreeableness_reverse_counter: 1
-      stop:
-        go to: Exit Game
-  go to: Preparedness Question
+# Concern Question:
+#   choice: 
+#     dialog: Do you feel little concern for others?
+#     intents:
+#       yes:
+#         assign:
+#           increment:
+#             agreeableness: 1
+#             agreeableness_counter: 1
+#       no: 
+#         assign:
+#           increment:
+#             agreeableness_reverse: 1
+#             agreeableness_reverse_counter: 1
+#       stop:
+#         go to: Exit Game
+#   go to: Preparedness Question
 
-Preparedness Question:
-  choice: 
-    dialog: Are you always prepared?
-    intents:
-      yes:
-        assign:
-          increment:
-            conscientiousness: 1
-            conscientiousness_counter: 1
-      no: 
-        assign:
-          increment:
-            conscientiousness_reverse: 1
-            conscientiousness_reverse_counter: 1
-      stop:
-        go to: Exit Game
-  go to: Stress Question
+# Preparedness Question:
+#   choice: 
+#     dialog: Are you always prepared?
+#     intents:
+#       yes:
+#         assign:
+#           increment:
+#             conscientiousness: 1
+#             conscientiousness_counter: 1
+#       no: 
+#         assign:
+#           increment:
+#             conscientiousness_reverse: 1
+#             conscientiousness_reverse_counter: 1
+#       stop:
+#         go to: Exit Game
+#   go to: Stress Question
 
-Stress Question:
-  choice: 
-    dialog: Do you get stressed out easily?
-    intents:
-      yes:
-        assign:
-          increment:
-            neuroticism: 1
-            neuroticism_counter: 1
-      no: 
-        assign:
-          increment:
-            neuroticism_reverse: 1
-            neuroticism_reverse_counter: 1
-      stop:
-        go to: Exit Game
-  go to: Vocabulary Question
+# Stress Question:
+#   choice: 
+#     dialog: Do you get stressed out easily?
+#     intents:
+#       yes:
+#         assign:
+#           increment:
+#             neuroticism: 1
+#             neuroticism_counter: 1
+#       no: 
+#         assign:
+#           increment:
+#             neuroticism_reverse: 1
+#             neuroticism_reverse_counter: 1
+#       stop:
+#         go to: Exit Game
+#   go to: Vocabulary Question
 
-Vocabulary Question:
-  choice: 
-    dialog: Do you have a rich vocabulary?
-    intents:
-      yes:
-        assign:
-          increment:
-            openness: 1
-            openness_counter: 1
-      no: 
-        assign:
-          increment:
-            openness_reverse: 1
-            openness_reverse_counter: 1
-      stop:
-        go to: Exit Game
+# Vocabulary Question:
+#   choice: 
+#     dialog: Do you have a rich vocabulary?
+#     intents:
+#       yes:
+#         assign:
+#           increment:
+#             openness: 1
+#             openness_counter: 1
+#       no: 
+#         assign:
+#           increment:
+#             openness_reverse: 1
+#             openness_reverse_counter: 1
+#       stop:
+#         go to: Exit Game
 
-Exit Game:
-  dialog: Goodbye.
+# Exit Game:
+#   dialog: Goodbye.
 

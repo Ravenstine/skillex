@@ -1,0 +1,22 @@
+Start:
+  intents:
+    launch:
+      go to: Intro
+    ${animal}:
+      go to: Read Animal Fact
+
+Intro:
+  dialog: I know all sorts of things about animals.
+  choice: 
+    dialog: What's your favorite animal?
+    intents:
+      ${animal}:
+        go to: Read Animal Fact
+
+Read Animal Fact:
+  web request: 
+    url: https://simple.wikipedia.org/w/api.php?format=json&redirects=1&action=query&prop=extracts&exintro=&explaintext=&titles=${animal}
+    pluck: extract
+    none dialog: I don't know about ${animal}.
+  dialog: You said ${animal}. ${webResponse}.
+

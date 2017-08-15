@@ -2,8 +2,13 @@
 
 const pillBox = require('./lib/pill-box')('./pills');
 const compile = require('./lib/compile');
+const fs      = require('fs');
 
 let schema    = compile(pillBox);
 
-console.log(JSON.stringify(schema, null, 2 )); 
+let json      = JSON.stringify(schema, null, 2 ); 
+
+let date      = new Date().getTime().toString();
+
+fs.writeFileSync(`schemas/intent-schema-${date}.json`, json);
 
