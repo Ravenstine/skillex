@@ -3,7 +3,7 @@ Intro:
   choice:
     intents:
       calculator:
-        go to pill: calculator
+        go to pill: big-5
       spooky house:
         go to pill: spooky-house
       garcetti:
