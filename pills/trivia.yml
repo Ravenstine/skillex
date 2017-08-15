@@ -1,3 +1,10 @@
+# Startup:
+#   intents:
+#     (ask me a question|ask me some questions):
+#       go to: Get Question
+#     ?:
+#       go to: Intro
+
 # Intro:
 #   dialog: |
 #     Welcome to endless trivia!  
@@ -22,7 +29,7 @@
 #       attributes.answer              = result.correct_answer
 #       attributes.correctAnswerLetter = letters[attributes.answers.indexOf(attributes.answer)]
 #       formattedAnswers               = attributes.answers.map((answer, i) -> "<emphasis level=\"moderate\">#{letters[i]}</emphasis>: #{answer}").join(", ")
-#       attributes.question            = "<prosody rate=\"slow\">#{result.question} <break time=\"0.5s\"/> #{formattedAnswers} </prosody>"
+#       attributes.question            = "<prosody rate=\"medium\">#{result.question} <break time=\"0.5s\"/> #{formattedAnswers} </prosody>"
 #   go to: Read Question
 
 # Read Question:
