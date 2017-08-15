@@ -1,6 +1,6 @@
 Start:
   intents:
-    launch:
+    launch request:
       go to: Intro
     ${animal}:
       go to: Read Animal Fact

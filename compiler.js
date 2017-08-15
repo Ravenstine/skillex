@@ -10,5 +10,7 @@ let json      = JSON.stringify(schema, null, 2 );
 
 let date      = new Date().getTime().toString();
 
+console.log(JSON.stringify(pillBox.animal))
+
 fs.writeFileSync(`schemas/intent-schema-${date}.json`, json);
 
