@@ -197,7 +197,7 @@ Incredible!  You've written a skill that takes user input and returns useful inf
 
 Start:
   intents:
-    launch:
+    launch request:
       go to: Intro
     ${animal}:
       go to: Read Animal Fact
