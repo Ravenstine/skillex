@@ -7,6 +7,8 @@ describe('operators', function(){
   let context = {
     attributes: {
       setTest: undefined,
+      setTest1: undefined,
+      setTest2: undefined,
       stringTest: 'hello',
       numberTest: 0,
       stringNumberTest: '3',
@@ -31,6 +33,18 @@ describe('operators', function(){
     }, context);
     assert.equal(context.attributes.booleanTest, true);
   })
+
+  it('sets a multiple values', function(){
+    assign(context.attributes, {
+      set: {
+        setTest1: 'a',
+        setTest2: 'b'
+      }
+    }, context);
+    assert.equal(context.attributes.setTest1 == 'a', true);
+    assert.equal(context.attributes.setTest2 == 'b', true);
+  })
+
 
   it('increments a number attribute', function(){
     assign(context.attributes, {
