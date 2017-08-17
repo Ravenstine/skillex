@@ -7,6 +7,8 @@ A nicer way to write Alexa skills. (WIP)
 - Easily handle many complex states within a skill.
 - Compile your intent schema from your skill configuration.  Never be baffled at synatx errors in your schema.†
 
+**NOTE:** A bunch of things are subject to change, including how the skill fundamentally is run and installed.  For the time being, treat this thing as a toy.
+
 ## Structure
 
 A skill is configured almost entirely through YAML files called "pills".  If you are familiar with [how to write YAML](https://learnxinyminutes.com/docs/yaml/), then you know how to write a skill with pills.  An entire skill can be represented in a single pill(entrypoint.yml), or multiple pills can be used to represent groups of states(e.x. different "scenes" in a text adventure game).
@@ -237,6 +239,8 @@ In your terminal, bst will print a link that you can provide to your Alexa skill
 
 ## Pill Reference
 
+**DOCUMENTATION IN PROGRESS**
+
 As mentioned above, a pill is merely YAML file containing various configuration keys that are used when building skill responses.
 
 ### Label Reference
@@ -246,7 +250,7 @@ A label is just a top-level key in a pill file.  They can only live on the top-l
 #### LABEL OBJECT
 
 ```yaml
-Label Name:
+<label name>:
 # Your label can be named anything.  When the user does not have an 
 # established state, the first label is the first to be evaluated.
   speak: <string|object>
@@ -338,6 +342,88 @@ Label Name:
   # See documentation on the CONDITION object.
 ```
 
+### Utterances Reference
+
+How Skills in Pills handles things like intents and utterance/slot information is drastically different than in typical skill development.  The concept of "intents" in their purest form don't really exist in a pill.  Rather, you define what utterances your skill will expect in a given state – when you build an intent schema using `bin/build-schema`, intent names, sample utterances, and slot information are extracted from each of your utterances.
+
+Here's an example utterance:
+
+`i like animals`
+
+The schema builder will look at that and decide that this is the `ILikeAnimalsIntent` and `i like animals` is an utterance of that intent.
+
+But what if you want to know if a user likes a specific animal?  Clearly, it's impractical to have an intent for each animal, so you would define a slot in your utterance.
+
+`i like ${animal}`
+
+As mentioned in the tutorial, the builder will try to guess the type for the slot you defined – if it matches an Amazon built-in slot type, it will choose that slot type for you.  
+
+In this case, you will get an intent called `ILikeAnimalIntent` with a sample utterance `i like {animal}` and the slot type will be defined as `AMAZON.Animal`.
+
+But what if your user won't phrase it exactly this way?  If you think that's going to happen, you should use the expander syntax:
+
+`(i like|i appreciate) ${animal}`
+
+That would generate an intent called `ILikeIAppreciateAnimalIntent` with the sample utterances `i like {animal}` and `i appreciate {animal}`, with the `AMAZON.Animal` slot type.
+
+What if, for some reason, you want a slot named `animal`, but you want it matched with a different slot type?  You can use this syntax:
+
+`(i like|i appreciate) ${animal:AMAZON.Movie}`
+
+Your slot will then be assigned to the `AMAZON.Movie` built-in type.
+
+Let's say you chose a different slot name – one that doesn't match a built-in intent type.
+
+`give me a podcast about ${category}`
+
+There is no built-in slot type called "Category", so the slot type will default to `AMAZON.LITERAL`.  This is done to get your skill in a working state with minimal configuration.  However, it's not a good idea to use `AMAZON.LITERAL` because it's less-precise in terms of Alexa's word recognition, but Amazon will not allow skills that use `AMAZON.LITERAL` to be published.  Think of `AMAZON.LITERAL` as a good way to quickly prototype your skill, but not something you want to plan on using in production.  You should instead define your slot types as described in the UTTERANCES OBJECT reference.
+
+Let's say you have an utterance `stop`.  Because it matches the intent called `AMAZON.StopIntent`, it will be assumed that's the intent the skill is expecting for that particular utterance.  This is true for all utterances that match an Amazon built-in intent type, including: 
+
+- cancel
+- help
+- loop off
+- loop on
+- next
+- no
+- pause
+- previous
+- repeat
+- resume
+- shuffle off
+- shuffle on
+- start over
+- stop
+- yes
+- page up
+- page down
+- more
+- navigate home
+- navigate settings
+- scroll up
+- scroll left
+- scroll right
+- scroll down
+
+#### UTTERANCES OBJECT
+
+```yaml
+utterances:
+  <utterance>:
+  # The top-level keys in the utterances object are individual utterances
+  # as described in the Utterances Reference.  The key name itself is
+  # the utterance string.  It will only be evaluated when the user
+  # responds with the matching utterance.  If the parent label has an
+  # `ask:` defined, it will only be evaluated after the user has responded. 
+    slots: <object>
+    # This is where you can [optionally] define configuration for 
+    # specific slots.  See documentation on the SLOTS OBJECT.
+    go to: <string>
+    # Navigates to a different label once the evaluation of the current 
+    # label has completed.  If evaluated, it will override any navigation
+    # defined in the label object.
+```
+
 ## Tests
 
 Testing uses [Mocha](https://github.com/mochajs/mocha).  It's also kinda horseshit at the moment.
@@ -363,25 +449,26 @@ Help would most definitely be appreciated!  If you've forked the repo and added 
 - metadata section w/ `import:` **complete**
 - template keys **complete**
 - `audio:` **complete**
-- compilation/merging of custom slot types
-- linter/warning system to catch errors
+- compilation/merging of custom slot types *i forget if i did this*
+- linter/warning system to catch errors & pitfalls
 - `reprompt:` **complete**
 - full support of multi-language strings
 - session persistence
 - `video:`
 - utterance expander **complete**
-- intent wildcard **complete**
+- utterance wildcard **complete**
 - `none speak:` for web request **complete**
-- directive function access inside of `script:`
 - automatic mapping of simpler intent names to AMAZON intent names **complete**
 - automagically guess built-in slot types based on slot names **complete**
 - encrypted attributes
 - simple slot value extraction **complete**
-- your intent names are also your sample utterances **complete**
+- your utterances are also your intents & samples **complete**
 - `require slots:`
 - `temp:` **complete**
 - `pluck:` **complete**
-- template rendering
+- templates and the Display directive
+- `rss request:`
+- `json request:` **currently exists as `web request` but might be moved**
 
 ## License
 
