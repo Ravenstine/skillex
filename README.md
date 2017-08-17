@@ -38,7 +38,7 @@ Intro:
   speak: Congratulations!  You've successuflly run your first skill with pills.
 ```
 
-Before we continue, build your schema by running `node compiler.js`.  This will write a JSON file to the `schemas/` directory.
+Before we continue, build your schema by running `bin/build-schema`.  This will write a JSON file to the `schemas/` directory.
 
 Now it's time to run the Bespoken Tools proxy server:
 
@@ -107,7 +107,7 @@ Intro:
 
 Hmm... that's not how you write an intent name... is it?  That looks more like a sample utterance.  Anyway, moving on.
 
-Because we have now changed how the interaction model works, we have to generate a new intent schema by running `node compiler.js`.  Let's check out what's in that new file.
+Because we have now changed how the interaction model works, we have to generate a new intent schema by running `bin/build-schema`.  Let's check out what's in that new file.
 
 ```json
 {
