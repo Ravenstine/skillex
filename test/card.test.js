@@ -9,13 +9,14 @@ describe('operators', function(){
     },
     response: {
 
-    }
+    },
+    responseBody: {}
   };
 
   it('adds a simple card object to the response', function(){
     let cardInput = {title: "hello", content: "hello world"};
     card(cardInput, context);
-    assert.deepEqual({type: "Simple", title: "hello", content: "hello world"}, context.response.card);
+    assert.deepEqual({type: "Simple", title: "hello", content: "hello world"}, context.responseBody.card);
   });
   
 });

@@ -1,13 +1,13 @@
 'use strict';
 
 const assert       = require('assert');
-const expandMatcher = require('../lib/expand-matcher');
+const expandUtterance = require('../lib/expand-utterance');
 
-describe('expand-matcher', function(){
+describe('expand-utterance', function(){
 
   let matcher = '(i would|i\'d) like [count:AMAZON.NUMBER] [snack:CustomType] [when:UnknownType]';
 
-  let impliedTypeMatcher = 'look ma!  no [number] types!';
+  let impliedTypeUtterance = 'look ma!  no [number] types!';
 
   let intent = {
     types: {
@@ -22,8 +22,7 @@ describe('expand-matcher', function(){
   };
 
   it('guesses an implied built-in type', function(){
-    expandMatcher(impliedTypeMatcher, intent);
-    debugger
+    expandUtterance(impliedTypeUtterance, intent);
     // assert.deepEqual
   });
   

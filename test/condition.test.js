@@ -7,6 +7,9 @@ describe('operators', function(){
   let context = {
     attributes: {
       hasTreasure: true
+    },
+    sessionAttributes: {
+
     }
   };
 
@@ -21,7 +24,7 @@ describe('operators', function(){
       }
     }
     condition(sampleCondition, context);
-    assert.equal(context.attributes.LABEL, 'win');
+    assert.equal(context.sessionAttributes.LABEL, 'win');
   });
   
 });
