@@ -469,6 +469,7 @@ Help would most definitely be appreciated!  If you've forked the repo and added 
 - templates and the Display directive
 - `rss request:`
 - `json request:` **currently exists as `web request` but might be moved**
+- `prompts:`
 
 ## License
 
