@@ -1,4 +1,6 @@
 'use strict';
 
-exports.handler = require('./lib/handler')('./pills');
+const pillBox = require('./lib/pill-box');
+
+exports.handler = require('./lib/handler')(pillBox('./pills'));
 

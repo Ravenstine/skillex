@@ -1,0 +1,26 @@
+$schema: http://json-schema.org/draft-04/schema#
+definitions: {}
+id: card.yml
+type: object
+description:
+  Adds a card directive to the skill response.
+properties:
+  type:
+    type: string
+    description: The card type.  The default value is 'Standard'.
+  title:
+    type: string
+    description: The title for the card.  This is usually displayed as a heading.
+  text:
+    type: string
+    description: The text body of the card.
+  image:
+    type: object
+    description: Image information for the card.
+    properties:
+      smallImageUrl:
+        type: string
+        description: The URL for a small version of the image.
+      largeImageUrl:
+        type: string
+        description: The URL for a large version of the image.

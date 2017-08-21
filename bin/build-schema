@@ -14,5 +14,5 @@ let date      = new Date().getTime().toString();
 
 console.log(JSON.stringify(pillBox.animal, null, 2));
 
-fs.writeFileSync(`schemas/intent-schema-${date}.json`, json);
+fs.writeFileSync(`speech-assets/intent-schema-${date}.json`, json);
 

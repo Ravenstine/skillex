@@ -1,17 +1,13 @@
 'use strict';
 
-const assert    = require('assert');
-const condition = require('../lib/condition');
+const assert          = require('assert');
+const condition       = require('../lib/builders/condition');
+const generateContext = require('../lib/context-generator');
 
 describe('operators', function(){
-  let context = {
-    attributes: {
-      hasTreasure: true
-    },
-    sessionAttributes: {
 
-    }
-  };
+  let context = generateContext();
+  context.attributes.hasTreasure = true;
 
   it('navigates based on a value', function(){
     let sampleCondition = {

@@ -1,0 +1,19 @@
+$schema: http://json-schema.org/draft-04/schema#
+definitions: {}
+id: speech.yml
+type:
+  - string
+  - object
+description:
+  Defines what speech gets appended to the skill response.
+properties:
+  en-US:
+    type: string
+    description: Speech string for American English Language.
+  en-GB:
+    type: string
+    description: Speech string for Britsh English Language.
+  de-DE:
+    type: string
+    description: Speech string for German Language.
+

@@ -1,0 +1,31 @@
+$schema: http://json-schema.org/draft-04/schema#
+definitions: {}
+id: audio.yml
+type: 
+  - string
+  - object
+description:
+  Adds an audio directive to the response.  If a string is provided, it can either
+  be a URL to an audio file(which clears the que and starts playing), or 'stop'(which
+  will stop the audio from playing on the device), or 'clear'(clears the queue).
+
+  You can instead provide an object with more specific options.
+properties:
+  url:
+    type: string
+    description: The URL for an audio file.
+  behavior:
+    type: object
+    description: 
+      The playBehavior value.  By default, it's set to "REPLACE_ALL".
+  token:
+    type: string
+    description:
+      The token to be added to the audio directive.  This can be anything
+      including an object – the value provided gets stringified.  When no
+      token is given, the URL becomes the token.
+  offset:
+    type: string
+    description:
+      Sets offsetInMilliseconds.  Default is 0.
+

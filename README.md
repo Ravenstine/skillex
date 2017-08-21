@@ -218,14 +218,19 @@ Since we want a user to also be able to invoke the skill by saying "Alexa, ask m
 
 Sometimes you'll ask it something it will not know about.  In that case, the `none speak:` key in the web request overrides the label dialog if the search result returned nothing.
 
-
 ## Schema Builder
 
-`bin/build-schema` will go through all intents mentioned in all the pills and merge them into a single JSON intent schema in the `schemas/` directory.  Drag or copy+paste the schema into your Alexa Skills Kit code editor.  Any intents with the same name get merged, including their sample utterances.
+`bin/build-schema` will go through all intents mentioned in all the pills and merge them into a single JSON intent schema in the `speechAssets/` directory.  Drag or copy+paste the schema into your Alexa Skills Kit code editor.  Any intents with the same name get merged, including their sample utterances.
+
+This only outputs a schema that will work for Skill Builder Beta.  It will not output separate text files for sample utterances.  You should just use Skill Builder Beta.
 
 ## Development
 
 It's recommended that you use [bespoken.tools](https://bespoken.tools/).
+
+## Deployment
+
+Running `bin/bundle` will create an optimized bundle of your skill, which you can upload to an AWS Lambda function.
 
 ### Installation
 
@@ -237,192 +242,9 @@ It's recommended that you use [bespoken.tools](https://bespoken.tools/).
 
 In your terminal, bst will print a link that you can provide to your Alexa skill configuration.  This will proxy requests from an Echo device to your skill.
 
-## Pill Reference
+## Object Reference
 
-**DOCUMENTATION IN PROGRESS**
-
-As mentioned above, a pill is merely YAML file containing various configuration keys that are used when building skill responses.
-
-### Label Reference
-
-A label is just a top-level key in a pill file.  They can only live on the top-level; there's no such thing as a nested label.
-
-#### LABEL OBJECT
-
-```yaml
-<label name>:
-# Your label can be named anything.  When the user does not have an 
-# established state, the first label is the first to be evaluated.
-  speak: <string|object>
-  # This is the simplest way to add speech to your skill response.  
-  # Any text provided can include SSML.  You can either provide a 
-  # plain string, or you can provide an object with keys for different
-  # localizations. 
-  # See documentation on the SPEECH object.
-  ask: <string|object>
-  # An ask is almost exactly the same as `speak:` except it tells the 
-  # Alexa-enabled device to wait for a user response.  This prevents 
-  # other label keys, such as `utterances:`, `events:`, and `condition:`
-  # from evaluating until the user has responded.  It is separate from 
-  # `speak:` because it is the default reprompt speech in case `reprompt:`
-  # is not specified.  Takes a string or a SPEECH object.
-  reprompt: <string|object>
-  # Again, similar to `speak:` and `ask:`, but is used when the 
-  # Alexa-enabled device waited for the user to say something and said 
-  # user didn't respond.  Takes a string or a SPEECH object.
-  error speech: <string|object>
-  # If something really goes wrong(i.e. an application error occurs),
-  # this is the speech that gets sent to the Alexa-enabled device.  
-  # It overrides any other speech that may have been specified as part 
-  # of the label or from labels that executed previously.  Takes a string 
-  # or a SPEECH object.
-  go to: <string>
-  # Navigates to a different label once the evaluation of the current 
-  # label has completed.  May be overridden by label keys such as 
-  # `utterances:`, `events:`, or `condition:` if they contain their own
-  # `go to:` keys that get evaluated.  Is deferred until the user responds
-  # if an `ask:` key is specified in the label.  When no navigation 
-  # occurs, execution stops at this label until a new request is made.
-  swallow pill: <string>
-  # This is like `go to:`, but navigates to a pill.  The string provided
-  # should match the file name of the pill sans the ".yml" part.  When used,
-  # this overrides `go to:` and defaults the current label state to the 
-  # first label in the specified pill.
-  assign: <object>
-  # This is how values are stored during a session.  They are kept as session
-  # attributes.  Takes an ASSIGNMENT object.  
-  # See documentation on the ASSIGNMENT object.
-  temp: <object>
-  # Similar to `assign:`, but stores temporary values that only last for the
-  # duration of the current request and do not persist for the rest of the 
-  # session.  If a variable specified in `temp:` matches one specified in 
-  # `assign:`, it will override the value from `assign:` until it gets cleared.
-  # This can get confusing, so it's a good idea to not have variable names 
-  # overlap between `assign:` and `temp:`.  Takes an ASSIGNMENT object.  
-  # See documentation on the ASSIGNMENT object.
-  events: <object>
-  # An event is currently synonmymous with the type of skill request being 
-  # received.  For example, you may want to have something different happen 
-  # when there is a LaunchRequest versus a SessionEndedRequest.  An EVENTS 
-  # object shares some basic functionality with the LABEL object, such as 
-  # `go to:`, to facilitate navigation.  
-  # See documentation on the EVENTS object.
-  utterances: <object>
-  # This is where you define how the skill reacts to speech from the user.  As
-  # with the EVENTS object, the UTTERANCES object shares some basic functionality
-  # with the LABEL object so that different speech from the user can facilitate 
-  # specific navigation through skill states.  
-  # See documentation on the UTTERANCES object.
-  web request: <string|object>
-  # Make HTTPS requests to external resources by providing either a string with 
-  # a URL or a WEB REQUEST object with more options.  This is always executed 
-  # before all the other keys when a label is evaluated.  It always expects a 
-  # JSON response.  If you need to request something other than JSON(e.g. XML), 
-  # you should probably make a separate service to translate what you need into 
-  # JSON.  For example, you could write an AWS Lambda function that makes the 
-  # initial API request and serves JSON to your skill.  However, it's recommended
-  # to not use crappy APIs to begin with.  The result of the request is assigned
-  # to the `webResponse` variable, and any top-level keys in the JSON response 
-  # are assigned to variables in the current scope.  
-  # See documentation on the WEB REQUEST object.
-  card: <object>
-  # Allows you to return a card as part of the skill response.
-  audio: <string|object>
-  # Adds an audio directive to the skill response so that the Alexa-enabled device
-  # will play the specified audio file.  Simply providing a URL to an audio file 
-  # as a string will tell the Alexa-enabled device to clear the queue(REPLACE_ALL)
-  # and play the audio.  To stop the currently playing audio, you can provide 
-  # "stop" as a string and a stop directive will be added to the request.  
-  # Similarly you can "clear enqueued" or "clear all".  The `audio:` key can also 
-  # take an AUDIO object, which allows greater finesse of the audio directive.  
-  # See documentation on the AUDIO object.
-  condition: <object>
-  # The equivalent of "if, then, else".  Use this for basic logic switching for 
-  # modifying attributes or for navigating.  
-  # See documentation on the CONDITION object.
-```
-
-### Utterances Reference
-
-How Skills in Pills handles things like intents and utterance/slot information is drastically different than in typical skill development.  The concept of "intents" in their purest form don't really exist in a pill.  Rather, you define what utterances your skill will expect in a given state – when you build an intent schema using `bin/build-schema`, intent names, sample utterances, and slot information are extracted from each of your utterances.
-
-Here's an example utterance:
-
-`i like animals`
-
-The schema builder will look at that and decide that this is the `ILikeAnimalsIntent` and `i like animals` is an utterance of that intent.
-
-But what if you want to know if a user likes a specific animal?  Clearly, it's impractical to have an intent for each animal, so you would define a slot in your utterance.
-
-`i like ${animal}`
-
-As mentioned in the tutorial, the builder will try to guess the type for the slot you defined – if it matches an Amazon built-in slot type, it will choose that slot type for you.  
-
-In this case, you will get an intent called `ILikeAnimalIntent` with a sample utterance `i like {animal}` and the slot type will be defined as `AMAZON.Animal`.
-
-But what if your user won't phrase it exactly this way?  If you think that's going to happen, you should use the expander syntax:
-
-`(i like|i appreciate) ${animal}`
-
-That would generate an intent called `ILikeIAppreciateAnimalIntent` with the sample utterances `i like {animal}` and `i appreciate {animal}`, with the `AMAZON.Animal` slot type.
-
-What if, for some reason, you want a slot named `animal`, but you want it matched with a different slot type?  You can use this syntax:
-
-`(i like|i appreciate) ${animal:AMAZON.Movie}`
-
-Your slot will then be assigned to the `AMAZON.Movie` built-in type.
-
-Let's say you chose a different slot name – one that doesn't match a built-in intent type.
-
-`give me a podcast about ${category}`
-
-There is no built-in slot type called "Category", so the slot type will default to `AMAZON.LITERAL`.  This is done to get your skill in a working state with minimal configuration.  However, it's not a good idea to use `AMAZON.LITERAL` because it's less-precise in terms of Alexa's word recognition, but Amazon will not allow skills that use `AMAZON.LITERAL` to be published.  Think of `AMAZON.LITERAL` as a good way to quickly prototype your skill, but not something you want to plan on using in production.  You should instead define your slot types as described in the UTTERANCES OBJECT reference.
-
-Let's say you have an utterance `stop`.  Because it matches the intent called `AMAZON.StopIntent`, it will be assumed that's the intent the skill is expecting for that particular utterance.  This is true for all utterances that match an Amazon built-in intent type, including: 
-
-- cancel
-- help
-- loop off
-- loop on
-- next
-- no
-- pause
-- previous
-- repeat
-- resume
-- shuffle off
-- shuffle on
-- start over
-- stop
-- yes
-- page up
-- page down
-- more
-- navigate home
-- navigate settings
-- scroll up
-- scroll left
-- scroll right
-- scroll down
-
-#### UTTERANCES OBJECT
-
-```yaml
-utterances:
-  <utterance>:
-  # The top-level keys in the utterances object are individual utterances
-  # as described in the Utterances Reference.  The key name itself is
-  # the utterance string.  It will only be evaluated when the user
-  # responds with the matching utterance.  If the parent label has an
-  # `ask:` defined, it will only be evaluated after the user has responded. 
-    slots: <object>
-    # This is where you can [optionally] define configuration for 
-    # specific slots.  See documentation on the SLOTS OBJECT.
-    go to: <string>
-    # Navigates to a different label once the evaluation of the current 
-    # label has completed.  If evaluated, it will override any navigation
-    # defined in the label object.
-```
+Until I can get a documentation builder working, see the YAML-formatted JSON schemas under [schemas/](https://github.com/Ravenstine/skills-in-pills/tree/master/schemas).
 
 ## Tests
 
@@ -467,8 +289,7 @@ Help would most definitely be appreciated!  If you've forked the repo and added 
 - `temp:` **complete**
 - `pluck:` **complete**
 - templates and the Display directive
-- `rss request:`
-- `json request:` **currently exists as `web request` but might be moved**
+- support for xml/rss in `web request:`
 - `prompts:`
 
 ## License

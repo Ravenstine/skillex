@@ -1,0 +1,57 @@
+$schema: http://json-schema.org/draft-04/schema#
+definitions: {}
+id: case.yml
+type: object
+description:
+  Response-building properties used by individual 'conditional' objects,
+  like a single utterance, event, or condition, when evaluated.  These 
+  keys are intentionally minimalistic so that each evaluated condition
+  only deals with navigation or attribute assignment.  If you need more
+  to happen when a condition gets evaluated, that's a sign you should
+  navigate to a new label in the current pill.
+properties:
+  speak:
+    $ref: speech.yml
+    description:
+      This is the simplest way to add speech to your skill response.  
+      Any text provided can include SSML.  You can either provide a 
+      plain string, or you can provide an object with keys for different
+      localizations.
+  go to:
+    type: string
+    description:
+      Navigates to a different label once the evaluation of the current 
+      label has completed.  May be overridden by label keys such as 
+      `utterances:`, `events:`, or `condition:` if they contain their own
+      `go to:` keys that get evaluated.  Is deferred until the user responds
+      if an `ask:` key is specified in the label.  When no navigation 
+      occurs, execution stops at this label until a new request is made.
+  swallow pill:
+    type: string
+    description:
+      This is like `go to:`, but navigates to a pill.  The string provided
+      should match the file name of the pill sans the ".yml" part.  When used,
+      this overrides `go to:` and defaults the current label state to the 
+      first label in the specified pill.
+  assign:
+    $ref: assignment.yml
+    description:
+      This is how values are stored during a session.  They are kept as session attributes.
+  temp:
+    $ref: assignment.yml
+    description:
+      Similar to `assign:`, but stores temporary values that only last for the
+      duration of the current request and do not persist for the rest of the 
+      session.  If a variable specified in `temp:` matches one specified in 
+      `assign:`, it will override the value from `assign:` until it gets cleared.
+      This can get confusing, so it's a good idea to not have variable names 
+      overlap between `assign:` and `temp:`.  
+  restore:
+    type: string
+    description:
+      Restores session data from the previous session.  This will only work if a
+      database such as DynamoDB or CouchDB is configured to persist session data.
+      Providing 'session' as the value will restore both the state(current pill
+      and label) and attributes, whereas providing 'attributes' will only restore
+      saved attributes and not the pill/label state.
+

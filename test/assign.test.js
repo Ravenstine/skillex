@@ -1,7 +1,7 @@
 'use strict';
 
 const assert  = require('assert');
-const assign  = require('../lib/assign');
+const assign  = require('../lib/builders/assign');
 
 describe('operators', function(){
   let context = {

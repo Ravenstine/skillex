@@ -1,0 +1,47 @@
+$schema: http://json-schema.org/draft-04/schema#
+definitions: {}
+id: web-request.yml
+type: 
+  - string
+  - object
+description:
+  A WEB REQUEST object defines how an HTTPS request should be made.
+  This is the first key in a label to be evaluated.  Depending on
+  the content type returned from the server, it will be parsed into
+  an object.  Currently, it only supports JSON responses.  If the
+  request experiences an error, that will trigger the `error speech:`
+  on the label.  Only HTTPS protocol will work; HTTP is not allowed.
+
+  If your skill requires complicated logic, it's recommended that you
+  extract that logic into a separate API/service, and make requests
+  to it using WEB REQUEST.
+
+  A web request can be either a URL string or an object with
+  more configuration.
+properties:
+  url:
+    type: string
+    description: The URL for the server to which the request is being made.
+  headers:
+    type: object
+    description: 
+      Headers that you wish to provide with the request.
+      Each key name corresponds directly with a header name.
+  method:
+    type: string
+    description:
+      The method being used for the request.  By default, this is
+      set to 'GET'.  Can be anything such as 'POST', 'PUT', 'DELETE'.
+  pluck:
+    type: string
+    description:
+      Traverses the parsed response object and returns the value of
+      the first key name that matches the provided value.
+  script:
+    type: string
+    description:
+      A CoffeeScript that gets executed after the request is made.  The
+      response object is provided through the `webResponse` variable.
+      Whatever value gets returned by the script becomes assigned to
+      `webResponse`.
+

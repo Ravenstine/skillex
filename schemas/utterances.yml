@@ -1,0 +1,15 @@
+$schema: http://json-schema.org/draft-04/schema#
+id: utterances.yml
+type: object
+description:
+  Is used in labels to react to a user utterance.  Each key name is an utterance
+  "expander" string, which can represent multiple permutations of type of utterance.
+  Only one utterance gets evaluated at a time.  The value is a CASE object, which
+  allows you to assign attributes and navigate to a different state.
+patternProperties:
+  ^.*$:
+    $ref: case.yml
+    description:
+      The key name represents one or more utterances that a user might say, the
+      value being a CASE object to determine what the next state will be.
+
