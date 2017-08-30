@@ -231,12 +231,6 @@ This only outputs a schema that will work for Skill Builder Beta.  It will not o
 
 It's recommended that you use [bespoken.tools](https://bespoken.tools/).
 
-### Installation
-
-`npm install -g bespoken-tools`
-
-### Use
-
 `bst proxy lambda index.js`
 
 In your terminal, bst will print a link that you can provide to your Alexa skill configuration.  This will proxy requests from an Echo device to your skill.
