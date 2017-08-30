@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "bin": {
+    "skills-in-pills": "./bin/skills-in-pills"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "proxy": "bst proxy lambda index.js"
@@ -24,6 +27,7 @@
     "node-config-yml": "^1.0.1",
     "parse-uri": "^1.0.0",
     "pascal-case": "^2.0.1",
+    "pluck": "0.0.4",
     "ssml-validator": "^0.1.0"
   },
   "devDependencies": {

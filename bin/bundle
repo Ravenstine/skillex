@@ -7,19 +7,18 @@ const browserify = require('browserify');
 const through2   = require("through2");
 const Uglify     = require('uglify-es');
 
-
-let pillBox = require('../lib/pill-box')('./pills');
-
+// Precompile the pill box
+let pillBox = require(`${__dirname}/../lib/pill-box`)('./pills');
 let pills   = JSON.stringify(pillBox); 
-
-let output = `'use strict';\n\nconst pills = ${pills};\n\n`;
+let output = '';
+fs.writeFileSync('/tmp/pillBox.js', `module.exports = function(){return ${pills};};`);
 
 let browserifyOptions = {
   standalone:       'lambda',
   browserField:     false,
   builtins:         false,
   commondir:        false,
-  ignoreMissing:    true,  // Do not fail on missing optional dependencies
+  ignoreMissing:    false,
   detectGlobals:    true,  // Default for bare in cli is true, but we don't care if its slower
   insertGlobalVars: {      // Handle process https://github.com/substack/node-browserify/issues/1277
     process: function() {}
@@ -33,15 +32,16 @@ let uglifyOptions = {
 
 let bundle = browserify(browserifyOptions);
 
-bundle.add('./lib/bundle-blueprint.js', {noParse: ['aws-sdk']});
-bundle.bundle()
+bundle
+  .require('/tmp/pillBox.js', {expose: './lib/pill-box'})
+  .add(`${process.cwd()}/index.js`)
+  .bundle()
   .pipe(through2(function (chunk, enc, callback) {
     output += chunk;
     callback()
   }))
   .on('finish', function () {
-    // output = JSON.stringify(Uglify.minify(output, uglifyOptions));
-    fs.writeFileSync(`build/index.js`, output);
-  })
+    fs.writeFileSync(`${process.cwd()}/build/index.js`, output);
+  });
 
 

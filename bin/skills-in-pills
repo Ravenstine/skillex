@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+
+'use strict';
+
+const exec  = require('child_process').exec;
+const spawn = require('child_process').spawn;
+
+switch(process.argv[2]){
+  case 'bundle':
+    exec(`${__dirname}/bundle`);
+    break;
+  case 'build-schema':
+    exec(`${__dirname}/build-schema`);
+    break;
+  case 'new':
+    console.log("Creating a new skill...")
+    let skillName = process.argv[3];
+    exec(`cp -r ${__dirname}/../blueprints ${process.cwd()}/${skillName}`);
+    spawn(`npm`, ['install', '--prefix', `${process.cwd()}/${skillName}`], { stdio: 'inherit' });
+    break;
+  default:
+    console.log(`
+      Usage:  skills-in-pills COMMAND
+
+      Build Alexa skills.
+
+      Commands:
+        new                Create a new skill in the current directory
+        build-schema       Compile schema from pill files.
+        bundle             Build an optimized bundle of the current skill.
+    `);
+}
+

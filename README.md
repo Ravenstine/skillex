@@ -17,8 +17,7 @@ A skill is configured almost entirely through YAML files called "pills".  If you
 
 At the moment, Skills in Pills is available simply as an app skeleton.  Follow these instructions to install:
 
-- Fork & clone the repo.
-- Run `npm install` in the project directory.
+- `npm install -g skills-in-pills`
 - Install [Bespoken Tools](https://bespoken.tools/): `npm install -g bespoken-tools`
 
 ## Core Concepts
@@ -33,19 +32,23 @@ For example, a label can have a `speak:` key that defines the speech text that i
 
 Let's make a new skill with pills.
 
-In `pills/entrypoint.yml`, you'll see the following:
+```sh
+skills-in-pills new myskill
+```
+
+In `myskill/pills/entrypoint.yml`, you'll see the following:
 
 ```yaml
 Intro:
   speak: Congratulations!  You've successuflly run your first skill with pills.
 ```
 
-Before we continue, build your schema by running `bin/build-schema`.  This will write a JSON file to the `schemas/` directory.
+Before we continue, build your schema by running `skill-in-pills build-schema`.  This will write a JSON file to the `schemas/` directory.
 
 Now it's time to run the Bespoken Tools proxy server:
 
 ```sh
-bst proxy lambda index.js --pithy
+bst proxy lambda index.js --verbose
 ```
 
 The output of that command will say something like `Your URL for Alexa Skill configuration:` and a link.  Copy that link down for later.
@@ -109,7 +112,7 @@ Intro:
 
 Hmm... that's not how you write an intent name... is it?  That looks more like a sample utterance.  Anyway, moving on.
 
-Because we have now changed how the interaction model works, we have to generate a new intent schema by running `bin/build-schema`.  Let's check out what's in that new file.
+Because we have now changed how the interaction model works, we have to generate a new intent schema by running `skill-in-pills build-schema`.  Let's check out what's in that new file.
 
 ```json
 {
@@ -220,17 +223,13 @@ Sometimes you'll ask it something it will not know about.  In that case, the `no
 
 ## Schema Builder
 
-`bin/build-schema` will go through all intents mentioned in all the pills and merge them into a single JSON intent schema in the `speechAssets/` directory.  Drag or copy+paste the schema into your Alexa Skills Kit code editor.  Any intents with the same name get merged, including their sample utterances.
+`skill-in-pills build-schema` will go through all intents mentioned in all the pills and merge them into a single JSON intent schema in the `speechAssets/` directory.  Drag or copy+paste the schema into your Alexa Skills Kit code editor.  Any intents with the same name get merged, including their sample utterances.
 
 This only outputs a schema that will work for Skill Builder Beta.  It will not output separate text files for sample utterances.  You should just use Skill Builder Beta.
 
 ## Development
 
 It's recommended that you use [bespoken.tools](https://bespoken.tools/).
-
-## Deployment
-
-Running `bin/bundle` will create an optimized bundle of your skill, which you can upload to an AWS Lambda function.
 
 ### Installation
 
@@ -242,13 +241,17 @@ Running `bin/bundle` will create an optimized bundle of your skill, which you ca
 
 In your terminal, bst will print a link that you can provide to your Alexa skill configuration.  This will proxy requests from an Echo device to your skill.
 
+## Deployment
+
+Running `skills-in-pills bundle` will create an optimized bundle of your skill and place it in `./build`, which you can upload to an AWS Lambda function.  You can deploy your skill as-is without bundling, but the bundling process precompiles your pills into a JSON structure that is a part of the application, reducing boot & response time.
+
 ## Object Reference
 
 Until I can get a documentation builder working, see the YAML-formatted JSON schemas under [schemas/](https://github.com/Ravenstine/skills-in-pills/tree/master/schemas).
 
 ## Tests
 
-Testing uses [Mocha](https://github.com/mochajs/mocha).  It's also kinda horseshit at the moment.
+Testing uses [Mocha](https://github.com/mochajs/mocha), and is pretty much a joke at the moment.
 
 `npm install -g mocha`
 
@@ -274,7 +277,7 @@ Help would most definitely be appreciated!  If you've forked the repo and added 
 - compilation/merging of custom slot types *i forget if i did this*
 - linter/warning system to catch errors & pitfalls
 - `reprompt:` **complete**
-- full support of multi-language strings
+- full support of multi-language strings **complete**
 - session persistence
 - `video:`
 - utterance expander **complete**
