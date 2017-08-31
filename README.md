@@ -288,6 +288,7 @@ Help would most definitely be appreciated!  If you've forked the repo and added 
 - templates and the Display directive
 - support for xml/rss in `web request:`
 - `prompts:`
+- Random speech strings to easily provide converstional variance
 
 ## License
 
