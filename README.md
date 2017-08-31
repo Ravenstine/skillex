@@ -286,9 +286,9 @@ Help would most definitely be appreciated!  If you've forked the repo and added 
 - `temp:` **complete**
 - `pluck:` **complete**
 - templates and the Display directive
-- support for xml/rss in `web request:`
+- support for xml/rss in `web request:` **complete**
 - `prompts:`
-- Random speech strings to easily provide converstional variance
+- Random speech strings to easily provide converstional variance **complete**
 
 ## License
 
