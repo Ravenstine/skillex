@@ -19,6 +19,7 @@ switch(process.argv[2]){
     spawn(`npm`, ['install', '--prefix', `${process.cwd()}/${skillName}`], { stdio: 'inherit' });
     break;
   default:
+    let packageJSON = require('../package.json');
     console.log(`
       Usage:  skills-in-pills COMMAND
 
@@ -28,6 +29,8 @@ switch(process.argv[2]){
         new                Create a new skill in the current directory
         build-schema       Compile schema from pill files.
         bundle             Build an optimized bundle of the current skill.
+
+      Version: ${packageJSON.version}
     `);
 }
 
