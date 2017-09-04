@@ -10,3 +10,5 @@ console.log(`cp ${__dirname}/../blueprints ${process.cwd()}/${skillName}`)
 
 exec(`cp ${__dirname}/../blueprints ${process.cwd()}/${skillName}`);
 
+exec(`git init ${process.cwd()}/${skillName}`);
+
