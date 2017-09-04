@@ -25,17 +25,57 @@ describe('speak', function(){
     assert.equal(context.responseBody.outputSpeech.ssml, '<speak>hallo welt </speak>');
   });
 
-  it('picks a random string from an array', function(){
+  it('joins an array', function(){
     let context = generateContext();
     speak(['bananas', 'oranges', 'apples'], context);
     let didMatch = context.responseBody.outputSpeech.ssml.match(/apples|bananas|oranges/) ? true : false;
     assert.equal(didMatch, true);
   });
 
-  it('picks a random string from a locale array', function(){
+  it('joins a locale array', function(){
     let context = generateContext();
     speak({'en-US': ['bananas', 'oranges', 'apples']}, context);
     let didMatch = context.responseBody.outputSpeech.ssml.match(/apples|bananas|oranges/) ? true : false;
+    assert.equal(didMatch, true);
+  });
+
+  it('picks random string from array', function(){
+    let context = generateContext();
+    speak({'en-US': {'random': ['bananas', 'oranges', 'apples']}}, context);
+    let didMatch = context.responseBody.outputSpeech.ssml.match(/apples|bananas|oranges/) ? true : false;
+    assert.equal(didMatch, true);
+  });
+
+  it('inserts a break', function(){
+    let context = generateContext();
+    speak([
+      "hello",
+      {break: 'medium'},
+      "workd"
+    ], context);
+    let didMatch = context.responseBody.outputSpeech.ssml.match(/<break strength="medium"\/>/) ? true : false;
+    assert.equal(didMatch, true);
+  });
+
+  it('inserts a timed pause', function(){
+    let context = generateContext();
+    speak([
+      "hello",
+      {pause: '2s'},
+      "workd"
+    ], context);
+    let didMatch = context.responseBody.outputSpeech.ssml.match(/<break time="2s"\/>/) ? true : false;
+    assert.equal(didMatch, true);
+  });
+
+  it('inserts audio', function(){
+    let context = generateContext();
+    speak([
+      "hello",
+      {audio: 'http://test.audio'},
+      "workd"
+    ], context);
+    let didMatch = context.responseBody.outputSpeech.ssml.match(/<audio src="http:\/\/test.audio"\/>/) ? true : false;
     assert.equal(didMatch, true);
   });
   
