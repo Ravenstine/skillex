@@ -3,17 +3,53 @@ definitions: {}
 id: speech.yml
 type:
   - string
+  - number
   - object
-description:
+  - array
+description: |
   Defines what speech gets appended to the skill response.
+  This object is extremely flexible and can contain nested speech objects.
 properties:
   en-US:
     type: string
-    description: Speech string for American English Language.
+    description: | 
+      Speech string for American English Language.  
+      Will only get used if this it matches the locale in the request.
   en-GB:
     type: string
-    description: Speech string for Britsh English Language.
+    description: | 
+      Speech string for Britsh English Language.  
+      Will only get used if this it matches the locale in the request.
   de-DE:
     type: string
-    description: Speech string for German Language.
+    description: | 
+      Speech string for German Language.  
+      Will only get used if this it matches the locale in the request.
+  say:
+    type: string
+    description: |
+      Takes a string that gets added to the output speech.
+      You will generally not need to use this property since it's easier
+      to just use a plain string in the same place you could use a speech object.
+  audio:
+    type: string
+    description: |
+      Takes a link to an audio file and appends it to the output speech
+      as an SSML audio tag.  This is different from the audio property on the
+      label object because it is not using the Audio Directive.
+  pause:
+    type: string
+    description: |
+      Adds a break of N seconds.  For example you could specify '2s' for a
+      2 second break.
+  break:
+    type: string
+    description: |
+      Adds a break of a given strength value.
+  random:
+    type: array
+    description: |
+      Selects a random value from a given array to use as part of the output speech.
+      The values in the array can be anything.
+
 
