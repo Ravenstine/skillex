@@ -1,13 +1,13 @@
 Skills In Pills
 ===============
 
+**NOTE:** I planned on building this build system out, but I've been distracted by many things not Alexa-related.  If I do continue work on this, it will probably end up as a major rewrite with some different paradigms as I have never been completely satisfied with the logic flow.  For the time being, treat this thing as a toy.
+
 A nicer way to write Alexa skills. (WIP)
 
 - Rapidly prototype fun & useful skills through human-readable configuration.
 - Easily handle many complex states within a skill.
 - Compile your intent schema from your skill configuration.  Never be baffled at synatx errors in your schema.†
-
-**NOTE:** A bunch of things are subject to change, including how the skill fundamentally is run and installed.  For the time being, treat this thing as a toy.
 
 ## Structure
 
