@@ -1,7 +1,7 @@
 Skills In Pills
 ===============
 
-**NOTE:** I planned on building this build system out, but I've been distracted by many things not Alexa-related.  If I do continue work on this, it will probably end up as a major rewrite with some different paradigms as I have never been completely satisfied with the logic flow.  For the time being, treat this thing as a toy.
+**NOTE:** I planned on building this system out, but I've been distracted by many things not Alexa-related.  If I do continue work on this, it will probably end up as a major rewrite with some different paradigms as I have never been completely satisfied with the logic flow.  For the time being, treat this thing as a toy.
 
 A nicer way to write Alexa skills. (WIP)
 
