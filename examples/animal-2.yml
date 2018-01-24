@@ -1,0 +1,21 @@
+Start:
+  go to: Intro
+  utterances:
+    ${animal}:
+      go to: Read Animal Fact
+
+Intro:
+  speak: I know all sorts of things about animals.
+  ask: What's your favorite animal?
+  utterances:
+    ${animal}:
+      go to: Read Animal Fact
+
+Read Animal Fact:
+  script: |
+    fetch(`https://simple.wikipedia.org/w/api.php?format=json&redirects=1&action=query&prop=extracts&exintro=&explaintext=&titles=${animal}`)
+    .then(resp) => resp.json()
+    .then(json) => set('response', extract(json))
+  speak: You said ${animal}. ${response}.
+  error: I don't know about ${animal}.
+

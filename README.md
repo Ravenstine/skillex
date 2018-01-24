@@ -257,7 +257,6 @@ Help would most definitely be appreciated!  If you've forked the repo and added 
 
 ## TODO
 
-- web request **complete**
 - `swallow pill:` **complete**
 - `go to random:`
 - `condition:` **complete enough**
@@ -265,7 +264,6 @@ Help would most definitely be appreciated!  If you've forked the repo and added 
 - `assign:` w/ operators **complete**
 - template strings **complete**
 - `script:` **complete**
-- metadata section w/ `import:` **complete**
 - template keys **complete**
 - `audio:` **complete**
 - compilation/merging of custom slot types *i forget if i did this*
@@ -276,17 +274,13 @@ Help would most definitely be appreciated!  If you've forked the repo and added 
 - `video:`
 - utterance expander **complete**
 - utterance wildcard **complete**
-- `none speak:` for web request **complete**
 - automatic mapping of simpler intent names to AMAZON intent names **complete**
 - automagically guess built-in slot types based on slot names **complete**
 - encrypted attributes
 - simple slot value extraction **complete**
 - your utterances are also your intents & samples **complete**
 - `require slots:`
-- `temp:` **complete**
-- `pluck:` **complete**
 - templates and the Display directive
-- support for xml/rss in `web request:` **complete**
 - `prompts:`
 - Random speech strings to easily provide converstional variance **complete**
 
