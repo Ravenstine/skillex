@@ -4,3 +4,4 @@ blueprints/etc
 log/
 speechAssets/
 build/
+./skill.json
