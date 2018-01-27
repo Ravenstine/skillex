@@ -1,7 +1,7 @@
 'use strict';
 
 const assert      = require('assert');
-const card  = require('../lib/builders/card');
+const card        = require('../lib/builders/card');
 
 describe('operators', function(){
   let context = {
