@@ -20,6 +20,8 @@
     "dot-prop": "^4.2.0",
     "follow-redirects": "^1.2.4",
     "glob-fs": "^0.1.7",
+    "handlebars-helpers": "^0.10.0",
+    "handlebars.moment": "^1.0.4",
     "html-entities": "^1.2.1",
     "intent-utterance-expander": "0.0.6",
     "js-yaml": "^3.9.0",
