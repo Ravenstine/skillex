@@ -9,6 +9,7 @@ type:
 description: |
   Defines what speech gets appended to the skill response.
   This object is extremely flexible and can contain nested speech objects.
+  Speech text is interpreted using Handlebars syntax.
 properties:
   en-US:
     type: string

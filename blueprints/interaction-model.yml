@@ -1,0 +1,7 @@
+languageModel:
+  invocationName: my skill
+  types: []
+  intents:
+dialog:
+prompts:
+

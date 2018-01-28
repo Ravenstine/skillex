@@ -45,20 +45,15 @@ Help:
       
 Validate:
   speak: Validating...
-  condition:
-    expression: firstNumber and operator.strict and secondNumber
-    if true:
-      go to: Calculate
-    if false:
-      go to: Don't Understand
+  script: firstNumber and operator.strict and secondNumber
+  if true:
+    go to: Calculate
+  if false:
+    go to: Don't Understand
 
 Calculate:
-  temp:
-    expression:
-      # all because alexa won't accept asterisks
-      # as a slot type value in the intent schema. arrrgggg
-      result: ${firstNumber} ${operator.strict.replace('x', '*')} ${secondNumber}
-  speak: The result is ${result}.
+  script: set 'temp.result', firstNumber * secondNumber
+  speak: The result is {{temp.result}}.
 
 Don't Understand:
   speak: I don't understand what you said.

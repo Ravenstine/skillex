@@ -2,21 +2,41 @@
 
 'use strict';
 
-const exec  = require('child_process').exec;
-const spawn = require('child_process').spawn;
+const exec  = require('child_process').execSync;
+const spawn = require('child_process').spawnSync;
+const fs    = require('fs');
+const YAML  = require('js-yaml');
+const _     = require('lodash');
 
 switch(process.argv[2]){
   case 'bundle':
     exec(`${__dirname}/bundle`);
     break;
-  case 'build-schema':
-    exec(`${__dirname}/build-schema`);
+  case 'build-models':
+    exec(`${__dirname}/build-models`);
+    break;
+  case 'deploy':
+    spawn(`${__dirname}/deploy`, { stdio: 'inherit' });
     break;
   case 'new':
     console.log("Creating a new skill...")
     let skillName = process.argv[3];
-    exec(`cp -r ${__dirname}/../blueprints ${process.cwd()}/${skillName}`);
-    spawn(`npm`, ['install', '--prefix', `${process.cwd()}/${skillName}`], { stdio: 'inherit' });
+    if(!skillName) return console.error('ERROR: Skill name is required.');
+    let skillPhrase = _.startCase(skillName).toLowerCase();
+    let skillDir  = `${process.cwd()}/${skillName}`;
+    // Copy base files
+    exec(`cp -r ${__dirname}/../blueprints ${skillDir}`);
+    // Install dependencies
+    spawn(`npm`, ['install', '--prefix', `${skillDir}`], { stdio: 'inherit' });
+    // Write the provided skill name to the interaction model invocation name
+    let model = YAML.safeLoad(fs.readFileSync(`${skillDir}/interaction-model.yml`, 'utf8'));
+    model.languageModel.invocationName = skillPhrase;
+    fs.writeFileSync(`${skillDir}/interaction-model.yml`, YAML.dump(model), 'utf8');
+    let skill = JSON.parse(fs.readFileSync(`${skillDir}/skill.json`, 'utf8'));
+    // Write the provided skill name to the skill manifest
+    skill.skillManifest.publishingInformation.locales['en-US'].name = skillName;
+    skill.skillManifest.publishingInformation.locales['en-US'].examplePhrases = [`Alexa open ${skillPhrase}`];
+    fs.writeFileSync(`${skillDir}/skill.json`, JSON.stringify(skill), 'utf8');
     break;
   default:
     let packageJSON = require('../package.json');
@@ -27,8 +47,8 @@ switch(process.argv[2]){
 
       Commands:
         new                Create a new skill in the current directory
-        build-schema       Compile schema from pill files.
-        bundle             Build an optimized bundle of the current skill.
+        build-models       Compile interaction model
+        bundle             Build an optimized bundle of the current skill
 
       Version: ${packageJSON.version}
     `);

@@ -5,9 +5,7 @@
         "en-US": {
           "summary": "Sample Short Description",
           "examplePhrases": [
-            "Alexa open hello world",
-            "Alexa tell hello world I am Jeff",
-            "Alexa tell hello world my name is Peter"
+            "Alexa open hello world"
           ],
           "name": "test-skill",
           "description": "Sample Full Description"
@@ -28,3 +26,4 @@
     "manifestVersion": "1.0"
   }
 }
+

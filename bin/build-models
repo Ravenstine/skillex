@@ -1,0 +1,22 @@
+#!/usr/bin/env node
+
+'use strict';
+
+const YAML         = require('js-yaml');
+const fs           = require('fs');
+const compileModel = require('../lib/model-compiler');
+const mkdirp       = require('mkdirp');
+
+let interactionYml   = fs.readFileSync('interaction-model.yml', 'utf8');
+
+let interactionModel = YAML.safeLoad(interactionYml);
+
+let models = compileModel(interactionModel);
+
+Object.keys(models).forEach(locale => {
+  let json      = JSON.stringify(models[locale], null, 2 );
+  console.log(json);
+  mkdirp.sync('./build/alexa/models/');
+  fs.writeFileSync(`./build/alexa/models/${locale}.json`, json, 'utf8');
+});
+

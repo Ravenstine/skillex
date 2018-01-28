@@ -1,30 +1,30 @@
 Skills In Pills
 ===============
 
-**NOTE:** I planned on building this system out, but I've been distracted by many things not Alexa-related.  If I do continue work on this, it will probably end up as a major rewrite with some different paradigms as I have never been completely satisfied with the logic flow.  For the time being, treat this thing as a toy.
-
-A nicer way to write Alexa skills. (WIP)
-
 - Rapidly prototype fun & useful skills through human-readable configuration.
 - Easily handle many complex states within a skill.
-- Compile your intent schema from your skill configuration.  Never be baffled at synatx errors in your schema.†
 
 ## Structure
 
-A skill is configured almost entirely through YAML files called "pills".  If you are familiar with [how to write YAML](https://learnxinyminutes.com/docs/yaml/), then you know how to write a skill with pills.  An entire skill can be represented in a single pill(entrypoint.yml), or multiple pills can be used to represent groups of states(e.x. different "scenes" in a text adventure game).
+A skill is configured almost entirely through [YAML](https://learnxinyminutes.com/docs/yaml/) files called "pills".  An entire skill can be represented in a single pill(entrypoint.yml), or multiple pills can be used to represent groups of states(e.x. different "scenes" in a text adventure game).
 
 ## Getting Started
 
-At the moment, Skills in Pills is available simply as an app skeleton.  Follow these instructions to install:
+`npm install -g skills-in-pills`
 
-- `npm install -g skills-in-pills`
-- Install [Bespoken Tools](https://bespoken.tools/): `npm install -g bespoken-tools`
+This tool is designed to be used with the Ask CLI.  
+
+[Ask CLI](https://developer.amazon.com/docs/smapi/ask-cli-command-reference.html): `npm install -g ask-cli`
+
+It's also recommended you use Bespoken Tools for developing your skill without having to frequently redeploy to see your changes.
+
+[Bespoken Tools](https://bespoken.tools/): `npm install -g bespoken-tools`
 
 ## Core Concepts
 
-A skill is configured almost entirely through YAML files referred to as "pills".  If you are familiar with [how to write YAML](https://learnxinyminutes.com/docs/yaml/), then you know how to write a skill with pills.  An entire skill can be represented in a single pill, or multiple pills can be used to represent groups of states(e.g. different "scenes" in a text adventure game).  `entrypoint.yml` is always the default pill.
+A skill is configured almost entirely through YAML files referred to as "pills".  An entire skill can be represented in a single pill, or multiple pills can be used to represent groups of states(e.g. different "scenes" in a text adventure game).  `entrypoint.yml` is always the default pill.
 
-Each pill contains one or more "labels", which are merely the top-level objects in a pill.  You can think of them as the equivalent of functions in a programming language, though they are much more constrained than that.  A label can contain a variety of keys & values that build a skill response.
+Each pill contains one or more "labels", which are merely the top-level objects in a pill.  Labels represent a very specific state in the execution of a skill, and can contain various key/value pairs used to build a skill response.
 
 For example, a label can have a `speak:` key that defines the speech text that is returned to an Alexa-enabled device.  If you want to ask the user a question and wait for a response, you would define that with a `ask:`.
 
@@ -43,34 +43,34 @@ Intro:
   speak: Congratulations!  You've successuflly run your first skill with pills.
 ```
 
-Before we continue, build your schema by running `skill-in-pills build-schema`.  This will write a JSON file to the `schemas/` directory.
+Before we continue, build your schema by running `skill-in-pills build-model`.  This will write a JSON file to the `build/alexa` directory.
 
-Now it's time to run the Bespoken Tools proxy server:
+Assuming you have set up the Ask CLI with the proper credentials, you can deploy your skill by running:
 
 ```sh
-bst proxy lambda index.js --verbose
+skills-in-pills deploy
 ```
 
-The output of that command will say something like `Your URL for Alexa Skill configuration:` and a link.  Copy that link down for later.
+Which is the equivalent of running
 
-### Skill Setup
+```sh
+skills-in-pills bundle
+ask deploy
+```
 
-Now we just need to tie things into a new skill configuration.
+If the deploy is successful, your skill should now be available on an Alexa-enabled device associatd with your Amazon developer account.  Just say "Alexa, open my skill" and see what happens, or use the new [test simulator](https://developer.amazon.com/blogs/alexa/post/577069bd-d9f9-439a-b4bf-3b0495e3d24b/announcing-new-test-simulator-beta-for-alexa-skills).
 
-1. Sign in to the [Amazon developer portal](https://developer.amazon.com/login.html). If you haven’t done so already, you’ll need to create a free account.
-2. From the top navigation bar, select **Alexa**.
-3. Under **Alexa Skills Kit**, choose **Get Started >**.
-4. Choose **Add a New Skill**.
-5. Name your skill and add an "invocation name".  This is the word or phrase that users will speak to activate the skill.  We'll use "my skill" as the invocation name for this tutorial.  Save and continue.
-6. Click on the button that says "Launch Skill Builder Beta".  Skills In Pills doesn't currently support the old builder.
-7. In the "Code Editor" tab, drag and drop the JSON file you built earlier into the window, then click **Apply Changes**.
-8. Click **Build Model**.  This may take a few minutes.  Then click the button at the top that says **Configuration**.
-9. Under **Endpoint**, select *HTTPS* and tick the box of whichever region is closest to you.  In my case, that's `North America`.  Paste the URL we saved from earlier into the text field, then click **Next**.
-10. In the **SSL Certificate** section, under **Certificate for NA Endpoint:**, choose "My development endpoint is a sub-domain of a domain that has a wildcard certificate from a certificate authority".
+### Using the Bespoken Lambda Proxy
 
-Your skill is now ready to be tested.  You can either test it using the service simulator, [Echosim.io](https://echosim.io/), or an Echo device associated with your developer account.
+Bespoken Tools makes is much easier to develop Alexa skills because it allows you to make live code changes without having to redeploy.
 
-Bespoken Tools is a useful tool that allows you to develop Alexa skills locally, without having to use AWS Lambda.  It also reloads your code automatically when you make changes.
+1. Run `npm install -g bespoken-tools`
+2. In the root directory of your skill, run `bst proxy lambda index.js`.  This will generate a URL in your console that you can use as a proxy to your locally running skill.
+3. Sign in to the [Amazon developer portal](https://developer.amazon.com/login.html) and navigate to the configuration for your skill.
+4. Select **Configuration** and select *HTTPS* under **Endpoint** and paste the URL we got from the console.  Click **Next**.
+5. In the **SSL Certificate** section, under **Certificate for NA Endpoint:**, choose "My development endpoint is a sub-domain of a domain that has a wildcard certificate from a certificate authority".
+
+Your skill can now be tested with an Alexa device associated with your Amazon developer account.
 
 ### Tutorial Cont'd
 
@@ -78,7 +78,7 @@ The skill can be invoked by saying "Alexa, open my skill."
 
 Your device will then respond with "Congratulations!  You've successuflly run your first skill with pills."
 
-If that's the response you get, then you're good to go.  This is a pretty boring skill, though.  Let's make something more interesting!
+If that's what Alexa says back to you, then you're good to go.  This is a pretty boring skill, though.  Let's make something more interesting!
 
 ```yaml
 # pills/entrypoint.yml
@@ -97,7 +97,7 @@ Intro:
   ask: What's your favorite animal?
 ```
 
-Upon reinvoking the skill, you'll notice that the Echo device will wait for a response, but does nothing more even if you respond to it.  Let's actually make it listen to what you have to say by adding an intent.
+Upon reinvoking the skill, you'll notice that the Alexa-enabled device will wait for a response, but does nothing more even if you respond to it.  Let's actually make it listen to what you have to say by adding an intent.
 
 ```yaml
 # pills/entrypoint.yml
@@ -105,14 +105,28 @@ Upon reinvoking the skill, you'll notice that the Echo device will wait for a re
 Intro:
   speak: I know all sorts of things about animals.
   ask: What's your favorite animal?
-  utterances:
-    ${animal}:
+  intents:
+    FavoriteAnimalIntent:
       go to: Read Animal Fact
 ```
 
-Hmm... that's not how you write an intent name... is it?  That looks more like a sample utterance.  Anyway, moving on.
+Since our skill now expects an intent from the user, we must define it in `interaction-model.yml`.
 
-Because we have now changed how the interaction model works, we have to generate a new intent schema by running `skill-in-pills build-schema`.  Let's check out what's in that new file.
+```yaml
+invocationName: my skill
+types: []
+intents:
+  - name: FavoriteAnimalIntent
+    samples: 
+      - {animal}
+      - the {animal}
+dialog:
+prompts:
+```
+
+Don't worry, it's not required that you define your slot types.
+
+Generate your interaction model JSON by running `skills-in-pills build-model` and check out the file `build/alexa/models/en-US.json`.
 
 ```json
 {
@@ -150,11 +164,12 @@ Because we have now changed how the interaction model works, we have to generate
 }
 ```
 
-How did it do that???
 
-The compiler looked at the utterance you wrote and derived an intent name, a sample utterance, an a slot including the slot type!  When you define a slot in your intent by itself with no type specified, it will attempt to guess the type based on the name if it matches an Amazon built-in slot type.  We'll learn about defining types later on.  For now, this will work perfectly.
+The compiler looked at the utterance samples you wrote and guessed the slot type!  When you define a slot in your intent by itself with no type specified, it will attempt to guess the type based on the name if it matches an Amazon built-in slot type.  If you didn't specify a type, and the name you use doesn't match a built-in type, it will default to `AMAZON.LITERAL`.
 
-Upload this schema in the Skill Builder and build the interaction model.  When that's done, reinvoke your skill by saying "Alexa, open my skill."
+As you can see, the model builder will also add the required intents for you if you don't specify them yourself.
+
+Deploy your skill and then reinvoke your skill by saying "Alexa, open my skill."
 
 Oh, snap!  It asked you what your favorite animal is but still did nothing with your response!  Let's see if we can get it to talk back with the name you gave it.
 
@@ -164,12 +179,12 @@ Oh, snap!  It asked you what your favorite animal is but still did nothing with 
 Intro:
   speak: I know all sorts of things about animals.
   ask: What's your favorite animal?
-  utterances:
-    ${animal}:
+  intents:
+    FavoriteAnimalIntent:
       go to: Read Animal Fact
 
 Read Animal Fact:
-  speak: You said ${animal}.
+  speak: You said {{animal}}.
 ```
 
 Now if you tell it that you like crocodiles, it will say "You like crocodiles."  How... useless.  Let's make your skill useful!
@@ -180,15 +195,20 @@ Now if you tell it that you like crocodiles, it will say "You like crocodiles." 
 Intro:
   speak: I know all sorts of things about animals.
   ask: What's your favorite animal?
-  utterances:
-    ${animal}:
+  intents:
+    FavoriteAnimalIntent:
       go to: Read Animal Fact
 
 Read Animal Fact:
-  web request: 
-    url: https://simple.wikipedia.org/w/api.php?format=json&redirects=1&action=query&prop=extracts&exintro=&explaintext=&titles=${animal}
-    pluck: extract
-  speak: You said ${animal}. ${webResponse}.
+  script: |
+    fetch('https://simple.wikipedia.org/w/api.php?format=json&redirects=1&action=query&prop=extracts&exintro=&explaintext=&titles=' + animal)
+      .then((resp) -> resp.json())
+      .then((json) -> set 'temp.result', Object.values(json.query.pages)[0])
+  speak: |
+    You said {{slots.animal}}.
+    {{#each temp.result as |page|}}
+      {{page.extract}}
+    {{/each}}
 ```
 
 Incredible!  You've written a skill that takes user input and returns useful information!  A skill can really be this simple.  But there are some finishing touches we should add.
@@ -197,43 +217,31 @@ Incredible!  You've written a skill that takes user input and returns useful inf
 # pills/entrypoint.yml
 
 Start:
-  utterances:
-    ${animal}:
+  intents:
+    FavoriteAnimalIntent::
       go to: Read Animal Fact
   go to: Intro
 
 Intro:
   speak: I know all sorts of things about animals.
   ask: What's your favorite animal?
-  utterances:
-    ${animal}:
+  intents:
+    FavoriteAnimalIntent:
       go to: Read Animal Fact
 
 Read Animal Fact:
-  web request:
-    url: https://simple.wikipedia.org/w/api.php?format=json&redirects=1&action=query&prop=extracts&exintro=&explaintext=&titles=${animal}
-    pluck: extract
-    none speech: I don't know about ${animal}.
-  speak: You said ${animal}. ${webResponse}.
+  script: |
+    fetch('https://simple.wikipedia.org/w/api.php?format=json&redirects=1&action=query&prop=extracts&exintro=&explaintext=&titles=' + animal)
+      .then((resp) -> resp.json())
+      .then((json) -> set 'temp.result', Object.values(json.query.pages)[0])
+  speak: |
+    You said {{slots.animal}}.
+    {{#each temp.result as |page|}}
+      {{page.extract}}
+    {{/each}}
 ```
 
 Since we want a user to also be able to invoke the skill by saying "Alexa, ask my skill about monkeys", we've added a new label at the top of the pill that directs us between the intro and the fact reader.  The label at the top of a pill is always the first to be executed during a session.  You can think of what we created as a "router" label.
-
-Sometimes you'll ask it something it will not know about.  In that case, the `none speak:` key in the web request overrides the label dialog if the search result returned nothing.
-
-## Schema Builder
-
-`skill-in-pills build-schema` will go through all intents mentioned in all the pills and merge them into a single JSON intent schema in the `speechAssets/` directory.  Drag or copy+paste the schema into your Alexa Skills Kit code editor.  Any intents with the same name get merged, including their sample utterances.
-
-This only outputs a schema that will work for Skill Builder Beta.  It will not output separate text files for sample utterances.  You should just use Skill Builder Beta.
-
-## Development
-
-It's recommended that you use [bespoken.tools](https://bespoken.tools/).
-
-`bst proxy lambda index.js`
-
-In your terminal, bst will print a link that you can provide to your Alexa skill configuration.  This will proxy requests from an Echo device to your skill.
 
 ## Deployment
 

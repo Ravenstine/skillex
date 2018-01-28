@@ -4,12 +4,13 @@
 
 const fs         = require('fs');
 const browserify = require('browserify');
-const through2   = require("through2");
+const through2   = require('through2');
 
 // Precompile the pill box
 let pillBox = require(`${__dirname}/../lib/pill-box`)('./pills');
 let pills   = JSON.stringify(pillBox); 
 let output = '';
+
 fs.writeFileSync('/tmp/pillBox.js', `module.exports = function(){return ${pills};};`);
 
 let browserifyOptions = {
@@ -35,7 +36,7 @@ bundle
     callback()
   }))
   .on('finish', function () {
-    fs.writeFileSync(`${process.cwd()}/build/index.js`, output);
+    fs.writeFileSync(`${process.cwd()}/build/alexa/index.js`, output);
   });
 
 
