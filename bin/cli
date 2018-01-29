@@ -48,7 +48,7 @@ switch(process.argv[2]){
   default:
     let packageJSON = require('../package.json');
     console.log(`
-      Usage:  skills-in-pills COMMAND
+      Usage:  skillex COMMAND
 
       Build Alexa skills.
 

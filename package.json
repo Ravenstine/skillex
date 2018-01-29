@@ -1,10 +1,10 @@
 {
-  "name": "skills-in-pills",
+  "name": "skillex",
   "version": "0.0.6",
   "description": "A fun way to build skills for Alexa.",
   "main": "index.js",
   "bin": {
-    "skills-in-pills": "./bin/skills-in-pills"
+    "skillex": "./bin/cli"
   },
   "scripts": {
     "test": "mocha",

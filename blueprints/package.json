@@ -1,6 +1,6 @@
 {
   "name": "",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,6 +9,6 @@
   "author": "",
   "license": "",
   "dependencies": {
-    "skills-in-pills": "^0.0.2"
+    "skillex": "^0.0.6"
   }
 }

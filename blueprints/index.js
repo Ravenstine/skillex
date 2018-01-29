@@ -1,6 +1,6 @@
 'use strict';
 
-const SkillsIn  = require('skills-in-pills');
+const Skillex  = require('skillex');
 
-exports.handler = SkillsIn('./pills');
+exports.handler = Skillex('./pills');
 

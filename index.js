@@ -1,8 +1,8 @@
 'use strict';
 
-const pillBox   = require('./lib/pill-box');
+const skillset   = require('./lib/skillset');
 
-module.exports  = (pillsDirectory) => {
-  return require('./lib/handler')(pillBox(pillsDirectory));
+module.exports  = (statesDirectory) => {
+  return require('./lib/handler')(skillset(statesDirectory));
 }
 

@@ -1,16 +1,16 @@
-Skills In Pills
-===============
+Skillex
+=======
 
-- Rapidly prototype fun & useful skills through human-readable configuration.
+- Write Alexa skills through human-readable configuration.
 - Easily handle many complex states within a skill.
 
 ## Structure
 
-A skill is configured almost entirely through [YAML](https://learnxinyminutes.com/docs/yaml/) files called "pills".  An entire skill can be represented in a single pill(entrypoint.yml), or multiple pills can be used to represent groups of states(e.x. different "scenes" in a text adventure game).
+A skill is configured almost entirely through [YAML](https://learnxinyminutes.com/docs/yaml/) files called "states".  An entire skill can be represented in a single state(entrypoint.yml), or multiple states can be used to represent groups of states(e.x. different "scenes" in a text adventure game).
 
 ## Getting Started
 
-`npm install -g skills-in-pills`
+`npm install -g skillex`
 
 This tool is designed to be used with the Ask CLI.  
 
@@ -22,39 +22,39 @@ It's also recommended you use Bespoken Tools for developing your skill without h
 
 ## Core Concepts
 
-A skill is configured almost entirely through YAML files referred to as "pills".  An entire skill can be represented in a single pill, or multiple pills can be used to represent groups of states(e.g. different "scenes" in a text adventure game).  `entrypoint.yml` is always the default pill.
+A skill is configured almost entirely through YAML files referred to as "states".  An entire skill can be represented in a single state, or multiple states can be used to represent groups of states(e.g. different "scenes" in a text adventure game).  `entrypoint.yml` is always the default state.
 
-Each pill contains one or more "labels", which are merely the top-level objects in a pill.  Labels represent a very specific state in the execution of a skill, and can contain various key/value pairs used to build a skill response.
+Each state contains one or more "labels", which are merely the top-level objects in a state.  Labels represent a very specific state in the execution of a skill, and can contain various key/value pairs used to build a skill response.
 
 For example, a label can have a `speak:` key that defines the speech text that is returned to an Alexa-enabled device.  If you want to ask the user a question and wait for a response, you would define that with a `ask:`.
 
 ## Tutorial
 
-Let's make a new skill with pills.
+Let's make a new skill with states.
 
 ```sh
-skills-in-pills new myskill
+skillex new my-skill
 ```
 
-In `myskill/pills/entrypoint.yml`, you'll see the following:
+In `myskill/states/entrypoint.yml`, you'll see the following:
 
 ```yaml
 Intro:
-  speak: Congratulations!  You've successuflly run your first skill with pills.
+  speak: Congratulations!  You've successuflly run your first skill.
 ```
 
-Before we continue, build your schema by running `skill-in-pills build-model`.  This will write a JSON file to the `build/alexa` directory.
+Before we continue, build your schema by running `skill-in-states build-model`.  This will write a JSON file to the `build/alexa` directory.
 
 Assuming you have set up the Ask CLI with the proper credentials, you can deploy your skill by running:
 
 ```sh
-skills-in-pills deploy
+skillex deploy
 ```
 
 Which is the equivalent of running
 
 ```sh
-skills-in-pills bundle
+skillex bundle
 ask deploy
 ```
 
@@ -76,12 +76,12 @@ Your skill can now be tested with an Alexa device associated with your Amazon de
 
 The skill can be invoked by saying "Alexa, open my skill."
 
-Your device will then respond with "Congratulations!  You've successuflly run your first skill with pills."
+Your device will then respond with "Congratulations!  You've successuflly run your first skill with states."
 
 If that's what Alexa says back to you, then you're good to go.  This is a pretty boring skill, though.  Let's make something more interesting!
 
 ```yaml
-# pills/entrypoint.yml
+# states/entrypoint.yml
 
 Intro:
   speak: I know all sorts of things about animals.
@@ -90,7 +90,7 @@ Intro:
 We've changed the dialog, and your skill reflects that change immediately when you invoke it.  It's still very stupid, and there's no form of interaction.  Let's ask the user for the name of an animal.
 
 ```yaml
-# pills/entrypoint.yml
+# states/entrypoint.yml
 
 Intro:
   speak: I know all sorts of things about animals.
@@ -100,7 +100,7 @@ Intro:
 Upon reinvoking the skill, you'll notice that the Alexa-enabled device will wait for a response, but does nothing more even if you respond to it.  Let's actually make it listen to what you have to say by adding an intent.
 
 ```yaml
-# pills/entrypoint.yml
+# states/entrypoint.yml
 
 Intro:
   speak: I know all sorts of things about animals.
@@ -126,7 +126,7 @@ prompts:
 
 Don't worry, it's not required that you define your slot types.
 
-Generate your interaction model JSON by running `skills-in-pills build-model` and check out the file `build/alexa/models/en-US.json`.
+Generate your interaction model JSON by running `skillex build-model` and check out the file `build/alexa/models/en-US.json`.
 
 ```json
 {
@@ -174,7 +174,7 @@ Deploy your skill and then reinvoke your skill by saying "Alexa, open my skill."
 Oh, snap!  It asked you what your favorite animal is but still did nothing with your response!  Let's see if we can get it to talk back with the name you gave it.
 
 ```yaml
-# pills/entrypoint.yml
+# states/entrypoint.yml
 
 Intro:
   speak: I know all sorts of things about animals.
@@ -190,7 +190,7 @@ Read Animal Fact:
 Now if you tell it that you like crocodiles, it will say "You like crocodiles."  How... useless.  Let's make your skill useful!
 
 ```yaml
-# pills/entrypoint.yml
+# states/entrypoint.yml
 
 Intro:
   speak: I know all sorts of things about animals.
@@ -214,7 +214,7 @@ Read Animal Fact:
 Incredible!  You've written a skill that takes user input and returns useful information!  A skill can really be this simple.  But there are some finishing touches we should add.
 
 ```yaml
-# pills/entrypoint.yml
+# states/entrypoint.yml
 
 Start:
   intents:
@@ -241,15 +241,15 @@ Read Animal Fact:
     {{/each}}
 ```
 
-Since we want a user to also be able to invoke the skill by saying "Alexa, ask my skill about monkeys", we've added a new label at the top of the pill that directs us between the intro and the fact reader.  The label at the top of a pill is always the first to be executed during a session.  You can think of what we created as a "router" label.
+Since we want a user to also be able to invoke the skill by saying "Alexa, ask my skill about monkeys", we've added a new label at the top of the state that directs us between the intro and the fact reader.  The label at the top of a state is always the first to be executed during a session.  You can think of what we created as a "router" label.
 
 ## Deployment
 
-Running `skills-in-pills bundle` will create an optimized bundle of your skill and place it in `./build`, which you can upload to an AWS Lambda function.  You can deploy your skill as-is without bundling, but the bundling process precompiles your pills into a JSON structure that is a part of the application, reducing boot & response time.
+Running `skillex bundle` will create an optimized bundle of your skill and place it in `./build`, which you can upload to an AWS Lambda function.  You can deploy your skill as-is without bundling, but the bundling process precompiles your states into a JSON structure that is a part of the application, reducing boot & response time.
 
 ## Object Reference
 
-Until I can get a documentation builder working, see the YAML-formatted JSON schemas under [schemas/](https://github.com/Ravenstine/skills-in-pills/tree/master/schemas).
+Until I can get a documentation builder working, see the YAML-formatted JSON schemas under [schemas/](https://github.com/Ravenstine/skillex/tree/master/schemas).
 
 ## Tests
 
@@ -261,11 +261,11 @@ Run tests with the `mocha` command in the root project folder.
 
 ## HALP
 
-Help would most definitely be appreciated!  If you've forked the repo and added your own features, don't hesitate to make a pull request.  Assistance with documentation, as well as discussion in [issues](https://github.com/ravenstine/skills-in-pills/issues) would be of great help.
+Help would most definitely be appreciated!  If you've forked the repo and added your own features, don't hesitate to make a pull request.  Assistance with documentation, as well as discussion in [issues](https://github.com/ravenstine/skillex/issues) would be of great help.
 
 ## TODO
 
-- `swallow pill:` **complete**
+- `go to state:` **complete**
 - `go to random:`
 - `condition:` **complete enough**
 - `card:` **complete**
@@ -294,5 +294,5 @@ Help would most definitely be appreciated!  If you've forked the repo and added 
 
 ## License
 
-See [LICENSE.txt](https://github.com/Ravenstine/skills-in-pills/blob/master/LICENSE.txt).
+See [LICENSE.txt](https://github.com/Ravenstine/skillex/blob/master/LICENSE.txt).
 

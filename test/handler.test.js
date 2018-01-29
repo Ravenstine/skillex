@@ -1,10 +1,10 @@
 'use strict';
 
 const assert  = require('assert');
-const pillBox = require('../lib/pill-box');
+const skillset = require('../lib/skillset');
 const LaunchRequest = require('./mocks/requests/launch');
 
-let handler = require('../lib/handler')(pillBox('./pills'));
+let handler = require('../lib/handler')(skillset('./states'));
 
 describe('handler', function(){
 

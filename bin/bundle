@@ -8,11 +8,11 @@ const through2   = require('through2');
 const mkdirp     = require('mkdirp');
 
 // Precompile the pill box
-let pillBox = require(`${__dirname}/../lib/pill-box`)('./pills');
-let pills   = JSON.stringify(pillBox); 
+let skillset = require(`${__dirname}/../lib/skillset`)('./states');
+let states   = JSON.stringify(skillset); 
 let output = '';
 
-fs.writeFileSync('/tmp/pillBox.js', `module.exports = function(){return ${pills};};`);
+fs.writeFileSync('/tmp/skillset.js', `module.exports = function(){return ${states};};`);
 
 let browserifyOptions = {
   standalone:       'lambda',
@@ -29,7 +29,7 @@ let browserifyOptions = {
 let bundle = browserify(browserifyOptions);
 
 bundle
-  .require('/tmp/pillBox.js', {expose: './lib/pill-box'})
+  .require('/tmp/skillset.js', {expose: './lib/skillset'})
   .add(`${process.cwd()}/index.js`)
   .bundle()
   .pipe(through2(function (chunk, enc, callback) {
