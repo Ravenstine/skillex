@@ -5,9 +5,9 @@
         "en-US": {
           "summary": "Sample Short Description",
           "examplePhrases": [
-            "Alexa open hello world"
+            "Alexa open my skill"
           ],
-          "name": "test-skill",
+          "name": "my-skill",
           "description": "Sample Full Description"
         }
       },
@@ -19,7 +19,7 @@
     "apis": {
       "custom": {
         "endpoint": {
-          "sourceDir": "./"
+          "sourceDir": "build/alexa/lambda/custom"
         }
       }
     },
