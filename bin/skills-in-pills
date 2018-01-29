@@ -15,6 +15,9 @@ switch(process.argv[2]){
   case 'build-models':
     exec(`${__dirname}/build-models`);
     break;
+  case 'build':
+    spawn(`${__dirname}/build`, { stdio: 'inherit' });
+    break;
   case 'deploy':
     spawn(`${__dirname}/deploy`, { stdio: 'inherit' });
     break;

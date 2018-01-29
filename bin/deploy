@@ -3,7 +3,13 @@
 'use strict';
 
 const spawn = require('child_process').spawnSync;
+const aSpawn = require('child_process').spawn;
 
-spawn(`${__dirname}/build-models`, { stdio: 'inherit' });
+spawn(`${__dirname}/build`, { stdio: 'inherit' });
 spawn(`${__dirname}/bundle`, { stdio: 'inherit' });
+
+let deploy = aSpawn('ask deploy', { stdio: 'inherit', cwd: `${process.cwd()}/build/alexa` });
+
+// deploy.stdout.pipe(process.stdout);
+
 

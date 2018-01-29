@@ -5,6 +5,7 @@
 const fs         = require('fs');
 const browserify = require('browserify');
 const through2   = require('through2');
+const mkdirp     = require('mkdirp');
 
 // Precompile the pill box
 let pillBox = require(`${__dirname}/../lib/pill-box`)('./pills');
@@ -36,7 +37,8 @@ bundle
     callback()
   }))
   .on('finish', function () {
-    fs.writeFileSync(`${process.cwd()}/build/alexa/index.js`, output);
+    mkdirp.sync(`${process.cwd()}/build/alexa/lambda/custom/`);
+    fs.writeFileSync(`${process.cwd()}/build/alexa/lambda/custom/index.js`, output);
   });
 
 

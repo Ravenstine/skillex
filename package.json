@@ -1,6 +1,6 @@
 {
   "name": "skills-in-pills",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A fun way to build skills for Alexa.",
   "main": "index.js",
   "bin": {
@@ -19,6 +19,7 @@
     "coffeescript": "^2.1.1",
     "dot-prop": "^4.2.0",
     "follow-redirects": "^1.2.4",
+    "fs-extra": "^5.0.0",
     "glob-fs": "^0.1.7",
     "handlebars-helpers": "^0.10.0",
     "handlebars.moment": "^1.0.4",

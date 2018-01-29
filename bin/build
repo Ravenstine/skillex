@@ -1,0 +1,22 @@
+#!/usr/bin/env node
+
+'use strict';
+
+const fs           = require('fs-extra');
+const mkdirp       = require('mkdirp');
+const spawn = require('child_process').spawnSync;
+
+let skillDir = process.cwd();
+
+spawn('rm',  ['-rf', `${skillDir}/build`], { stdio: 'inherit' });
+
+mkdirp.sync(`${skillDir}/build/alexa/.ask`);
+
+fs.copySync(`${skillDir}/skill.json`, `${skillDir}/build/alexa/skill.json`);
+
+spawn(`${__dirname}/build-models`, { stdio: 'inherit' });
+spawn(`${__dirname}/bundle`, { stdio: 'inherit' });
+
+// Create a symlink to Ask CLI config so that changes made by the CLI persist.
+fs.symlinkSync(`${skillDir}/.ask/config`, `${skillDir}/build/alexa/.ask/config`);
+
