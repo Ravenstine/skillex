@@ -4,7 +4,7 @@ const assert  = require('assert');
 const skillset = require('../lib/skillset');
 const LaunchRequest = require('./mocks/requests/launch');
 
-let handler = require('../lib/handler')(skillset('./states'));
+let handler = require('../lib/handler')(skillset('./scenes'));
 
 describe('handler', function(){
 

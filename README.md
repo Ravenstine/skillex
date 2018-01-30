@@ -4,10 +4,6 @@ Skillex
 - Write Alexa skills through human-readable configuration.
 - Easily handle many complex states within a skill.
 
-## Structure
-
-A skill is configured almost entirely through [YAML](https://learnxinyminutes.com/docs/yaml/) files called "states".  An entire skill can be represented in a single state(entrypoint.yml), or multiple states can be used to represent groups of states(e.x. different "scenes" in a text adventure game).
-
 ## Getting Started
 
 `npm install -g skillex`
@@ -22,28 +18,28 @@ It's also recommended you use Bespoken Tools for developing your skill without h
 
 ## Core Concepts
 
-A skill is configured almost entirely through YAML files referred to as "states".  An entire skill can be represented in a single state, or multiple states can be used to represent groups of states(e.g. different "scenes" in a text adventure game).  `entrypoint.yml` is always the default state.
+A skill is configured almost entirely through YAML files referred to as "scenes".  An entire skill can be represented in a single scene, or multiple scenes can be used to represent groups of states(e.g. different "scenes" in a text adventure game).  `entrypoint.yml` is always the default scene.
 
-Each state contains one or more "labels", which are merely the top-level objects in a state.  Labels represent a very specific state in the execution of a skill, and can contain various key/value pairs used to build a skill response.
+Each scene contains one or more "labels", which are merely the top-level objects in a scene.  Labels represent a very specific scene in the execution of a skill, and can contain various key/value pairs used to build a skill response.
 
-For example, a label can have a `speak:` key that defines the speech text that is returned to an Alexa-enabled device.  If you want to ask the user a question and wait for a response, you would define that with a `ask:`.
+For example, a label can have a `say:` key that defines the speech text that is returned to an Alexa-enabled device.  If you want to ask the user a question and wait for a response, you would define that with a `ask:`.
 
 ## Tutorial
 
-Let's make a new skill with states.
+Let's make a new skill.
 
 ```sh
 skillex new my-skill
 ```
 
-In `myskill/states/entrypoint.yml`, you'll see the following:
+In `my-skill/scene/entrypoint.yml`, you'll see the following:
 
 ```yaml
 Intro:
   speak: Congratulations!  You've successuflly run your first skill.
 ```
 
-Before we continue, build your schema by running `skill-in-states build-model`.  This will write a JSON file to the `build/alexa` directory.
+Before we continue, build your schema by running `skillex build-model`.  This will write a JSON file to the `build/alexa/models` directory.
 
 Assuming you have set up the Ask CLI with the proper credentials, you can deploy your skill by running:
 
@@ -74,7 +70,7 @@ I'm working on a serious rewrite.  Will add more documentation soon as things st
 
 ## TODO
 
-- `go to state:` **complete**
+- `go to scene:` **complete**
 - `go to random:`
 - `condition:` **complete enough**
 - `card:` **complete**
@@ -83,14 +79,13 @@ I'm working on a serious rewrite.  Will add more documentation soon as things st
 - `script:` **complete**
 - template keys **complete**
 - `audio:` **complete**
-- compilation/merging of custom slot types *i forget if i did this*
 - linter/warning system to catch errors & pitfalls
 - `reprompt:` **complete**
 - full support of multi-language strings **complete**
 - session persistence
 - `video:`
 - utterance expander **complete**
-- utterance wildcard **complete**
+- intent wildcard **complete**
 - automatic mapping of simpler intent names to AMAZON intent names **complete**
 - automagically guess built-in slot types based on slot names **complete**
 - encrypted attributes

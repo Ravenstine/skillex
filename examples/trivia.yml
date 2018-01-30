@@ -1,68 +1,58 @@
 Startup:
-  utterances:
-    (ask me a question|ask me some questions):
+  intents:
+    AskQuestionIntent:
       go to: Get Question
     ?:
       go to: Intro
 
 Intro:
-  dialog: |
+  say: |
     Welcome to endless trivia!  
     I will ask you multiple choice questions on general knowledge.  
     Would you like to get started?
-  utterances:
-    yes:
+  intents:
+    AMAZON.YesIntent:
       go to: Get Question
-    no:
+    AMAZON.NoIntent:
       go to: Exit Game
-    stop:
+    AMAZON.StopIntent:
       go to: Exit Game
 
 Get Question:
-  web request:
-    url: https://opentdb.com/api.php?amount=1&type=multiple&category=17
-    script: |
-      letters                        = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
-      result                         = results[0]
-      attributes.answers             = _.shuffle(result.incorrect_answers.concat(result.correct_answer))
-      attributes.answer              = result.correct_answer
-      attributes.correctAnswerLetter = letters[attributes.answers.indexOf(attributes.answer)]
+  script: |
+    fetch('https://opentdb.com/api.php?amount=1&type=multiple&category=17')
+    .then resp => resp.json()
+    .then results =>  
+      set temp.letters                     , ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+      set 'attributes.answers'             , _.shuffle(result.incorrect_answers.concat(result.correct_answer))
+      set 'attributes.answer'              , result.correct_answer
+      set 'attributes.correctAnswerLetter' , letters[attributes.answers.indexOf(attributes.answer)]
       formattedAnswers               = attributes.answers.map((answer, i) -> "<emphasis level=\"moderate\">#{letters[i]}</emphasis>: #{answer}").join(", ")
       attributes.question            = "<prosody rate=\"medium\">#{result.question} <break time=\"0.5s\"/> #{formattedAnswers} </prosody>"
   go to: Read Question
 
 Read Question:
-  ask: ${question}
-  reprompt: Let me repeat that. ${question}
-  utterances:
-    ( |answer|choice) ${answerLetter}:
-      slots:
-        answerLetter:
-          type: MultipleChoice
-          values:
-            - a
-            - b
-            - c
-            - d
-            - e
-            - f
-            - g
+  ask: |
+    <prosody rate=\"medium\">
+    {{attributes.question}}
+    <break time=\"0.5s\"/>
+    {{#each attributes.answers as |answer i|}}
+      <emphasis level=\"moderate\">{{i}}</emphasis>: {{answer}}
+    {{/each}}
+  intents:
+    AnswerIntent:
       go to: Evaluate Answer
-    ( |i|i'm) (don't know|dunno|not sure):
+    DontKnowIntent:
       go to: I Don't Know
-    next:
-      samples:
-        - skip
-        - next question
-        - skip this question
+    AMAZON.NextIntent:
       go to: Get Question
-    repeat:
+    AMAZON.RepeatIntent:
       go to: Read Question
-    stop:
+    AMAZON.StopIntent:
       go to: Exit Game
 
 Evaluate Answer:
-  speak: You said ${answerLetter}, ${yourAnswer}.
+  say: You said ${answerLetter}, ${yourAnswer}.
   script: |
     answerIndex = ['a', 'b', 'c', 'd', 'e', 'f', 'g'].indexOf(answerLetter.strict)
     attributes.yourAnswer = if (answerIndex > -1) then (answers or [])[answerIndex] else ''
@@ -74,17 +64,17 @@ Evaluate Answer:
       go to: Wrong Answer
 
 Correct Answer:
-  speak: That's correct!
+  say: That's correct!
   go to: Get Question
 
 I Don't Know:
-  speak: The correct answer is ${correctAnswerLetter}, ${answer}.
+  say: The correct answer is ${correctAnswerLetter}, ${answer}.
   go to: Get Question
 
 Wrong Answer:
-  speak: That is incorrect.  The correct answer is ${correctAnswerLetter}, ${answer}.
+  say: That is incorrect.  The correct answer is ${correctAnswerLetter}, ${answer}.
   go to: Get Question
 
 Exit Game:
-  speak: So long for now!
+  say: So long for now!
 

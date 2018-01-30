@@ -2,5 +2,5 @@
 
 const Skillex  = require('skillex');
 
-exports.handler = Skillex('./pills');
+exports.handler = Skillex('./scenes');
 

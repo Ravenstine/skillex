@@ -2,6 +2,6 @@ node_modules/
 blueprints/node_modules/
 blueprints/etc
 log/
-speechAssets/
 build/
 ./skill.json
+

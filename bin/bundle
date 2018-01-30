@@ -8,11 +8,11 @@ const through2   = require('through2');
 const mkdirp     = require('mkdirp');
 
 // Precompile the pill box
-let skillset = require(`${__dirname}/../lib/skillset`)('./states');
-let states   = JSON.stringify(skillset); 
+let skillset = require(`${__dirname}/../lib/skillset`)('./scenes');
+let scenes   = JSON.stringify(skillset); 
 let output = '';
 
-fs.writeFileSync('/tmp/skillset.js', `module.exports = function(){return ${states};};`);
+fs.writeFileSync('/tmp/skillset.js', `module.exports = function(){return ${scenes};};`);
 
 let browserifyOptions = {
   standalone:       'lambda',

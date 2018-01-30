@@ -1,21 +1,34 @@
 Start:
   go to: Intro
-  utterances:
-    ${animal}:
+  intents:
+    AnimalIntent:
       go to: Read Animal Fact
 
 Intro:
   speak: I know all sorts of things about animals.
+  go to: Ask For Animal
+
+Ask For Animal:
   ask: What's your favorite animal?
-  utterances:
-    ${animal}:
+  intents:
+    AnimalIntent:
       go to: Read Animal Fact
+    ?:
+      go to: Unsure
+
+Unsure:
+  speak: I'm not sure what you meant.
+  go to: Ask For Animal
 
 Read Animal Fact:
   script: |
-    fetch(`https://simple.wikipedia.org/w/api.php?format=json&redirects=1&action=query&prop=extracts&exintro=&explaintext=&titles=${animal}`)
-    .then(resp) => resp.json()
-    .then(json) => set('response', extract(json))
-  speak: You said ${animal}. ${response}.
-  error: I don't know about ${animal}.
+    fetch "https://simple.wikipedia.org/w/api.php?format=json&redirects=1&action=query&prop=extracts&exintro=&explaintext=&titles=#{animal}"
+    .then resp => resp.json()
+    .then json => set 'temp.response', from(json).get('')
+  speak: |
+    {{#if response}}
+      You said {{animal}}. {{response}}.
+    {{else}}
+      I don't know about {{animal}}
+    {{/if}}
 

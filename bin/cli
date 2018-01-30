@@ -44,6 +44,10 @@ switch(process.argv[2]){
     let config = JSON.parse(fs.readFileSync(`${skillDir}/.ask/config`, 'utf8'));
     config.deploy_settings.default.merge.skillManifest.apis.custom.endpoint.uri = `ask-custom-${skillName}-default`;
     fs.writeFileSync(`${skillDir}/.ask/config`, JSON.stringify(config, null, 2), 'utf8');
+    // Write package
+    let package = JSON.parse(fs.readFileSync(`${skillDir}/package.json`, 'utf8'));
+    package.name = skillName;
+    fs.writeFileSync(`${skillDir}/package.json`, JSON.stringify(config, null, 2), 'utf8');
     break;
   default:
     let packageJSON = require('../package.json');
