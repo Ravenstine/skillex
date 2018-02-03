@@ -1,0 +1,25 @@
+{
+  "session": {
+    "sessionId": "SessionId.000000-0000-0000-0000-0000",
+    "application": {
+      "applicationId": "amzn1.ask.skill.skillex"
+    },
+    "attributes": {},
+    "user": {
+      "userId": "amzn1.ask.account.FAKEUSER"
+    },
+    "new": true
+  },
+  "request": {
+    "type": "IntentRequest",
+    "requestId": "EdwRequestId.000000-0000-0000-0000-0000",
+    "locale": "en-US",
+    "timestamp": "2017-07-27T01:02:25Z",
+    "intent": {
+      "name": "FoobarIntent",
+      "slots": {}
+    }
+  },
+  "version": "1.0"
+}
+
