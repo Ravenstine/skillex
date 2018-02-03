@@ -1,12 +1,13 @@
 'use strict';
 
-const assert    = require('chai').assert;
-const peelLabel = require('../lib/label-peeler');
-const generateContext = require('../lib/context-generator');
+const assert            = require('chai').assert;
+const peelLabel         = require('../lib/label-peeler');
+const generateContext   = require('../lib/context-generator');
+const helloWorldRequest = require('./mocks/requests/hello-world');
 
 describe('label-peeler', function(){
 
-  it('navigates', (done) => {
+  it('navigates to a label', (done) => {
     let context = generateContext({});
     peelLabel({
       'go to': 'some other label'
@@ -16,6 +17,58 @@ describe('label-peeler', function(){
         done();
       });
   });
+
+  it('navigates to a scene', (done) => {
+    let context = generateContext({});
+    peelLabel({
+      'go to scene': 'some other scene'
+    }, context)
+      .then(() => {
+        assert.isTrue(context.get('navigator.hasNavigated'));
+        assert.equal(context.get('navigator.currentSceneName'), 'some other scene');
+        done();
+      });
+  });
+
+  // it('navigates between multiple labels', (done) => {
+  //   let scenes = {
+  //     entrypoint: {
+  //       'label 1': {
+  //         'go to': 'label 2'
+  //       },
+  //       'label 2': {
+  //         'go to': 'label 3'
+  //       },
+  //       'label 3': {
+  //         'go to': 'label 4'
+  //       }
+  //     }
+  //   };
+  //   let context = generateContext({},{},scenes);
+  //   peelLabel(scenes['entrypoint']['label 1'], context)
+  //     .then(() => {
+  //       function foo () { console.log(context);}
+  //       debugger
+  //       done();
+  //     });
+  // });
+
+  it('finishes state', (done) => {
+    let context = generateContext(helloWorldRequest);
+    peelLabel({
+      'go to': 'some label',
+      'intents': {
+        'NavigatorIntent': {
+          'finish': true
+        }
+      }
+    }, context)
+      .then(() => {
+        assert.notExists(context.get('navigator.currentSceneName'));
+        assert.notExists(context.get('navigator.currentLabelName'));
+        done();
+      });
+  })
   
   it('prevents toplevel navigation when waiting for user response', (done) => {
     let context = generateContext({});

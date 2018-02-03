@@ -33,7 +33,7 @@ switch(process.argv[2]){
     spawn(`npm`, ['install', '--prefix', `${skillDir}`], { stdio: 'inherit' });
     // Write the provided skill name to the interaction model invocation name
     let model = YAML.safeLoad(fs.readFileSync(`${skillDir}/interaction-model.yml`, 'utf8'));
-    model.languageModel.invocationName = skillPhrase;
+    model.interactionModel.languageModel.invocationName = skillPhrase;
     fs.writeFileSync(`${skillDir}/interaction-model.yml`, YAML.dump(model), 'utf8');
     let skill = JSON.parse(fs.readFileSync(`${skillDir}/skill.json`, 'utf8'));
     // Write the provided skill name to the skill manifest
@@ -45,9 +45,9 @@ switch(process.argv[2]){
     config.deploy_settings.default.merge.skillManifest.apis.custom.endpoint.uri = `ask-custom-${skillName}-default`;
     fs.writeFileSync(`${skillDir}/.ask/config`, JSON.stringify(config, null, 2), 'utf8');
     // Write package
-    let package = JSON.parse(fs.readFileSync(`${skillDir}/package.json`, 'utf8'));
-    package.name = skillName;
-    fs.writeFileSync(`${skillDir}/package.json`, JSON.stringify(config, null, 2), 'utf8');
+    let pkg = JSON.parse(fs.readFileSync(`${skillDir}/package.json`, 'utf8'));
+    pkg.name = skillName;
+    fs.writeFileSync(`${skillDir}/package.json`, JSON.stringify(pkg, null, 2), 'utf8');
     break;
   default:
     let packageJSON = require('../package.json');

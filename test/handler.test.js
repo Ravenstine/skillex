@@ -4,7 +4,13 @@ const assert  = require('assert');
 const skillset = require('../lib/skillset');
 const LaunchRequest = require('./mocks/requests/launch');
 
-let handler = require('../lib/handler')(skillset('./scenes'));
+let handler = require('../lib/handler')({
+  entrypoint: {
+    intro: {
+      say: 'hello world'
+    }
+  }
+});
 
 describe('handler', function(){
 

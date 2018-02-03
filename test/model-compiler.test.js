@@ -128,6 +128,23 @@ describe('model-compiler', function(){
     assert.include(models['en-US'].interactionModel.languageModel.intents[0].samples, 'goodbye world');
   });
 
+  it('expands single sample utterance', () => {
+    let models = compileModel({
+      interactionModel: {
+        languageModel: {
+          intents: [
+            {
+              name: 'SomeIntentName',
+              samples: '(hello|goodbye) world'
+            }
+          ]
+        }
+      }
+    });
+    assert.include(models['en-US'].interactionModel.languageModel.intents[0].samples, 'hello world');
+    assert.include(models['en-US'].interactionModel.languageModel.intents[0].samples, 'goodbye world');
+  });
+
   it('guesses unspecified slot types', () => {
     let models = compileModel({
       interactionModel: {
