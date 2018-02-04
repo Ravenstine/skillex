@@ -1,4 +1,4 @@
-.: &defaultIntents
+.: &defaultActions
   AMAZON.HelpIntent:
     say: |
       I will ask you general knowledge questions.
@@ -13,7 +13,7 @@
       - I'm not sure what you mean.
 
 Startup:
-  intents:
+  actions:
     AskQuestionIntent:
       go to: Read Question
     ?:
@@ -24,8 +24,8 @@ Intro:
     Welcome to endless trivia!
     I will ask you multiple choice questions on general knowledge.  
     Would you like to get started?
-  intents:
-    <<: *defaultIntents
+  actions:
+    <<: *defaultActions
     AMAZON.YesIntent:
       go to: Read Question
     AMAZON.NoIntent:
@@ -52,8 +52,8 @@ Read Question:
         <emphasis level=\"moderate\">{{this}}</emphasis>: {{answer}}
       {{/with}}
     {{/each}}
-  intents:
-    <<: *defaultIntents
+  actions:
+    <<: *defaultActions
     AnswerIntent:
       go to: Evaluate Answer
     DontKnowIntent:

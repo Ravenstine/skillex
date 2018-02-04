@@ -57,7 +57,7 @@ describe('label-peeler', function(){
     let context = generateContext(helloWorldRequest);
     peelLabel({
       'go to': 'some label',
-      'intents': {
+      'actions': {
         'NavigatorIntent': {
           'finish': true
         }

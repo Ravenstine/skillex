@@ -6,11 +6,11 @@ const parseScene = require('../lib/scene-parser');
 
 describe('scene parser', function(){
 
-  it('handles comma-separated intents', () => {
+  it('handles comma-separated actions', () => {
     let scene = {
       'intro': {
         'say': 'Hello world',
-        'intents': {
+        'actions': {
           'FirstIntent,SecondIntent': {
             replay: null
           }
@@ -19,12 +19,12 @@ describe('scene parser', function(){
     };
 
     parseScene(scene);
-    let intents = scene.intro.intents;
+    let actions = scene.intro.actions;
     
-    assert.ok(intents.FirstIntent);
-    assert.ok(intents.SecondIntent);
-    assert.equal(intents.FirstIntent, intents.SecondIntent);
-    assert.notOk(intents['FirstIntent,SecondIntent']);
+    assert.ok(actions.FirstIntent);
+    assert.ok(actions.SecondIntent);
+    assert.equal(actions.FirstIntent, actions.SecondIntent);
+    assert.notOk(actions['FirstIntent,SecondIntent']);
 
   });
 

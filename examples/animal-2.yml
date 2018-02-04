@@ -1,6 +1,6 @@
 Start:
   go to: Intro
-  intents:
+  actions:
     AnimalIntent:
       go to: Read Animal Fact
 
@@ -10,7 +10,7 @@ Intro:
 
 Ask For Animal:
   ask: What's your favorite animal?
-  intents:
+  actions:
     AnimalIntent:
       go to: Read Animal Fact
     ?:

@@ -59,7 +59,7 @@ describe('runtime', function(){
         'label 1': {
           say: 'hello',
           ask: 'baz?',
-          intents: {
+          actions: {
             FoobarIntent: {
               repeat: null
             }
@@ -91,7 +91,7 @@ describe('runtime', function(){
         'label 1': {
           say: 'hello',
           ask: 'baz?',
-          intents: {
+          actions: {
             FoobarIntent: {
               repeat: 'question'
             }
