@@ -1,79 +1,86 @@
+.: &defaultIntents
+  AMAZON.HelpIntent:
+    say: |
+      I will ask you general knowledge questions.
+      Each question is multiple choice.
+      Your answer should be the letter of one of the options I give you.
+    replay:
+  AMAZON.StopIntent, AMAZON.CancelIntent:
+    go to: Exit Game
+  ?:
+    say:
+      - Sorry, I don't understand.
+      - I'm not sure what you mean.
+
 Startup:
   intents:
     AskQuestionIntent:
-      go to: Get Question
+      go to: Read Question
     ?:
       go to: Intro
 
 Intro:
   say: |
-    Welcome to endless trivia!  
+    Welcome to endless trivia!
     I will ask you multiple choice questions on general knowledge.  
     Would you like to get started?
   intents:
+    <<: *defaultIntents
     AMAZON.YesIntent:
-      go to: Get Question
+      go to: Read Question
     AMAZON.NoIntent:
       go to: Exit Game
-    AMAZON.StopIntent:
-      go to: Exit Game
-
-Get Question:
-  script: |
-    fetch('https://opentdb.com/api.php?amount=1&type=multiple&category=17')
-    .then resp => resp.json()
-    .then results =>  
-      set temp.letters                     , ['a', 'b', 'c', 'd', 'e', 'f', 'g']
-      set 'attributes.answers'             , _.shuffle(result.incorrect_answers.concat(result.correct_answer))
-      set 'attributes.answer'              , result.correct_answer
-      set 'attributes.correctAnswerLetter' , letters[attributes.answers.indexOf(attributes.answer)]
-      formattedAnswers               = attributes.answers.map((answer, i) -> "<emphasis level=\"moderate\">#{letters[i]}</emphasis>: #{answer}").join(", ")
-      attributes.question            = "<prosody rate=\"medium\">#{result.question} <break time=\"0.5s\"/> #{formattedAnswers} </prosody>"
-  go to: Read Question
 
 Read Question:
+  script: |
+    set 'temp.letters', ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+    return if get 'attributes.question'
+    fetch('https://opentdb.com/api.php?amount=1&type=multiple&category=17')
+    .then resp => resp.json()
+    .then results =>
+      result = results[0]
+      set 'attributes.question',             result.question
+      set 'attributes.answers',              _.shuffle(result.incorrect_answers.concat(result.correct_answer))
+      set 'attributes.answer',               result.correct_answer
+      set 'attributes.correctAnswerLetter',  letters[attributes.answers.indexOf(attributes.answer)]
   ask: |
     <prosody rate=\"medium\">
     {{attributes.question}}
     <break time=\"0.5s\"/>
     {{#each attributes.answers as |answer i|}}
-      <emphasis level=\"moderate\">{{i}}</emphasis>: {{answer}}
+      {{#with (lookup ../temp.letters @index)}}
+        <emphasis level=\"moderate\">{{this}}</emphasis>: {{answer}}
+      {{/with}}
     {{/each}}
   intents:
+    <<: *defaultIntents
     AnswerIntent:
       go to: Evaluate Answer
     DontKnowIntent:
       go to: I Don't Know
     AMAZON.NextIntent:
-      go to: Get Question
+      go to: Read Question
     AMAZON.RepeatIntent:
       go to: Read Question
-    AMAZON.StopIntent:
-      go to: Exit Game
 
 Evaluate Answer:
-  say: You said ${answerLetter}, ${yourAnswer}.
+  say: You said {{answerLetter}}, {{yourAnswer}}.
   script: |
+    set 'attributes.question', null
     answerIndex = ['a', 'b', 'c', 'd', 'e', 'f', 'g'].indexOf(answerLetter.strict)
     attributes.yourAnswer = if (answerIndex > -1) then (answers or [])[answerIndex] else ''
-  condition:
-    expression: answerLetter.strict is correctAnswerLetter
-    if true:
-      go to: Correct Answer
-    if false:
-      go to: Wrong Answer
-
-Correct Answer:
-  say: That's correct!
-  go to: Get Question
+    answerLetter.strict is correctAnswerLetter
+  if true:
+    say: That's correct!
+    go to: Read Question
+  if false:
+    say: That is incorrect.  The correct answer is {{correctAnswerLetter}}, {{answer}}.
+    go to: Read Question
 
 I Don't Know:
-  say: The correct answer is ${correctAnswerLetter}, ${answer}.
-  go to: Get Question
-
-Wrong Answer:
-  say: That is incorrect.  The correct answer is ${correctAnswerLetter}, ${answer}.
-  go to: Get Question
+  script: set 'attributes.question', null
+  say: The correct answer is {{correctAnswerLetter}}, {{answer}}.
+  go to: Read Question
 
 Exit Game:
   say: So long for now!
