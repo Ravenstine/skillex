@@ -1,0 +1,28 @@
+{
+  "version": "1.0",
+  "session": {
+    "application": {},
+    "user": {},
+    "request": {
+      "type": "GameEngine.InputHandlerEvent",  
+      "requestId": "amzn1.echo-api.request.406fbc75-8bf8-4077-a73d-519f53d172a4",
+      "timestamp": "2017-08-18T01:29:40.027Z",
+      "locale": "en-US",
+      "originatingRequestId": "amzn1.echo-api.request.406fbc75-8bf8-4077-a73d-519f53d172d6",
+      "events": [
+        {       
+          "name": "myEventName",
+          "inputEvents": [
+            {
+              "gadgetId": "someGadgetId1",
+              "timestamp": "2017-08-18T01:32:40.027Z",
+              "action": "down",
+              "feature": "press"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
+

@@ -28,5 +28,18 @@ describe('scene parser', function(){
 
   });
 
+  it('removes hidden labels', () => {
+    let scene = {
+      '.hidden': {
+        'say': 'Hello world',
+        }
+    };
+
+    parseScene(scene);
+
+    assert.equal(Object.keys(scene).length, 0);
+
+  });
+
 });
 

@@ -1,9 +1,7 @@
 'use strict';
 
 const assert            = require('chai').assert;
-// const peelLabel         = require('../lib/label-peeler');
 const generateContext   = require('../lib/context-generator');
-// const helloWorldRequest = require('./mocks/requests/hello-world');
 const runtime         = require('../lib/runtime');
 const foobarIntentRequest = require('./mocks/requests/foobar-intent');
 
