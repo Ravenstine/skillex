@@ -5,7 +5,7 @@ type: object
 description:
   A label can be named anything.  When the user does not have an established state, the first label is the first to be evaluated.
 properties:
-  speak:
+  say:
     $ref: speech.yml
     description:
       This is the simplest way to add speech to your skill response.  
@@ -15,19 +15,19 @@ properties:
   ask: 
     $ref: speech.yml
     description:
-      An ask is almost exactly the same as `speak:` except it tells the 
+      An ask is almost exactly the same as `say:` except it tells the 
       Alexa-enabled device to wait for a user response.  This prevents 
-      other label keys, such as `utterances:`, `events:`, and `condition:`
+      other label keys, such as `actions:`, `events:`, and `condition:`
       from evaluating until the user has responded.  It is separate from 
-      `speak:` because it is the default reprompt speech in case `reprompt:`
+      `say:` because it is the default reprompt speech in case `reprompt:`
       is not specified.  Takes a string or a SPEECH object.
   reprompt:
     $ref: speech.yml
     description:
-      Again, similar to `speak:` and `ask:`, but is used when the 
+      Again, similar to `say:` and `ask:`, but is used when the 
       Alexa-enabled device waited for the user to say something and said 
       user didn't respond.
-  error speech:
+  error:
     $ref: speech.yml
     description:
       If something really goes wrong(i.e. an application error occurs),
@@ -39,18 +39,18 @@ properties:
     description:
       Navigates to a different label once the evaluation of the current 
       label has completed.  May be overridden by label keys such as 
-      `utterances:`, `events:`, or `condition:` if they contain their own
+      `actions:`, `events:`, or `condition:` if they contain their own
       `go to:` keys that get evaluated.  Is deferred until the user responds
       if an `ask:` key is specified in the label.  When no navigation 
       occurs, execution stops at this label until a new request is made.
-  swallow pill:
+  go to scene:
     type: string
     description:
-      This is like `go to:`, but navigates to a pill.  The string provided
-      should match the file name of the pill sans the ".yml" part.  When used,
+      This is like `go to:`, but navigates to a scene.  The string provided
+      should match the file name of the scene sans the ".yml" part.  When used,
       this overrides `go to:` and defaults the current label state to the 
-      first label in the specified pill.
-  utterances:
+      first label in the specified scene.
+  actions:
     $ref: utterances.yml
     description:
       This is where you define how the skill reacts to speech from the user.  As
@@ -76,7 +76,7 @@ properties:
     description:
       Restores session data from the previous session.  This will only work if a
       database such as DynamoDB or CouchDB is configured to persist session data.
-      Providing 'session' as the value will restore both the state(current pill
+      Providing 'session' as the value will restore both the state(current scene
       and label) and attributes, whereas providing 'attributes' will only restore
-      saved attributes and not the pill/label state.
+      saved attributes and not the scene/label state.
 

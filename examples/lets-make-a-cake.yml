@@ -1,0 +1,160 @@
+Intro: 
+  say: |
+    You're feeling slightly peckish. 
+    You say to yourself, "I should bake a nice cake to-day. What kind of cake should it be?"
+  ask: Do you want to bake a strawberry shortcake, a chocolate cake, or a vegan cake?
+  actions:
+    StrawberryShortcake:
+      go to: 2
+    ChocolateCake:
+      go to: 3
+    VeganCake:
+      go to: 4
+
+2: 
+  say: |
+    You've decided to make a strawberry shortcake. 
+    Suddenly, a thought dawns on you: even though you love that kind of cake, you've never made it before and you have no idea how to start. 
+    What should you do?
+  ask: |
+    Do you change your mind and make a chocolate cake?  
+    Or perhaps you'd like to make a vegan cake instead?
+    Or, do you want to want to look at a recipe book?
+    Or, do you just want to go ahead and improvise?
+  actions:
+    ChocolateCake:
+      go to: 3
+    VeganCake:
+      go to: 4
+    RecipeBook:
+      go to: 5
+    NoRecipe:
+      go to: 6
+
+
+
+3. You've decided to make a chocolate cake. Seeing as this is your favorite recipe, you've memorized it. It calls for two eggs, three cups of flour, sugar, butter, and chocolate. Lately you've been getting a little bored with this trite recipe. You long for a change. What should you do?
+
+If you change your mind and decide to bake a strawberry shortcake, go to 2.
+If you change your mind and decide to bake a vegan cake, go to 4.
+If you want to stick to the same old boring chocolate recipe, go to 17.
+If you want to try spicing up the old chocolate recipe, go to 18.
+
+4. You've decided to bake a vegan cake (though for what reason I can only guess.) The kind of cake you are making is a pineapple upside-down cake. You begin by getting your ingredients together (soy milk, margarine, egg substitute, and all that stuff.) You follow the recipe slowly and carefully, wise vegan eyes scanning the page. Finally, it comes time for you to add the pineapple.
+
+If you are a left-handed vegan, go to 26.
+If you are a right-handed vegan, go to 27.
+If you're not really a vegan and you've just been pretending, go to 2 or 3 to make another kind of cake. Shame on you!
+
+5. You take Joy of Cooking off your shelf. Flipping back to the index, you get a paper cut on your wrist, and it's insanely deep for a paper cut. You're bleeding profusely. What should you do?
+
+If you want to call 911, go to 7.
+If you want to keep baking like nothing happened, go to 8.
+If you want to change your mind and bake another kind of cake, go to 9.
+If you want to do something to quell the bleeding, but still continue baking, go to 10.
+
+6. You continue baking the strawberry short cake with no recipe. What do you put in the cake first?
+
+Twigs, slugs, lots of baking soda, and a healthy dose of arsenic. Go to 14.
+Forget about the cake- you want Necco wafers, and lots of them. Go to 15.
+You pick a few things at random, and then add strawberries. Go to 16.
+
+7. Blood everywhere, you manage to crawl to your telephone and take the receiver off the base. In your low-blood-level state of mind, you can't quite remember: what were those numbers you were supposed to call? Hurry, you're losing blood!
+
+"911! The numbers are 911!" Go to 11.
+If you think the number is 311, go to 12.
+If you think the number is 1-212-657-8985, go to 13.
+
+8. Doubled over with pain, you make it back to the kitchen clutching Joy of Cooking. It's hard to make out the recipe as blood is soon covering the entire page. What were you thinking, trying to bake while you have a paper cut that's more like a paper wound? Minutes later, you're dead on the floor. THE END.
+
+9. You change your mind and start to look up the recipe for a coconut cake, which really sounds tasty. Unfortunately, by the time you locate the recipe, your kitchen floor is covered with blood. Ironically, you die from the concussion you get after you slip on the bloody floor and hit your head on the counter, not from the blood loss in and of itself. THE END.
+
+10. You rip off a section of your shirt to quell the bleeding. That always works in the movies, right? You make sure to tie your impromptu bandage really tight. That's when you noticed the poisoned arrow heading straight toward you. THE END.
+
+11. 911, you remember! It's 911! Hastily, you begin dialing- until you realize that your phone is shooting electric sparks like crazy. THE END.
+
+12. Could the numbers be 311? you think as you punch in the numbers. A voice on the other end asks if you would like to report a domestic disturbance, a leaky fire hydrant, a tree that has fallen down, or-
+As you listen to the voice, you quietly pass out. THE END.
+
+13. Hurrying, you dial 1-212-657-8985. It sounds oddly long, but you push your worries aside. "Hello, Roma Pizza. Can I take your order?"
+"Please.. save me," you squeak into the telephone as you pass out.
+"Huh. That's funny. Third time today," says the man on the other end of the phone.
+
+THE END.
+
+14. You fill a bowl with twigs, slugs, two tablespoons of baking soda, plus some other things you found outside that you're not exactly sure what it is. For good measure, you finish it off with a dollop of arsenic. You put it in the oven and wait an hour. When you take it out, you cut yourself a huge slice (you glutton, you) and put it in your mouth. It actually tastes fairly good, and you enjoy your cake for a few moments before you die. THE END.
+
+15. Strawberry shortcake doesn't sound so good anymore. Looking up a recipe is such hard work, and so is baking in general. You still want a snack, though, so you decide to fill up on the most convenient ready-made food that you have: Necco wafers. The taste is so vile and unnatural that you drop dead at the very first bite. THE END.
+
+16. With your eyes closed, you select a few items at random, throw them in a bowl, add strawberries and sugar, and throw it in the oven. You keep waiting and waiting, but you aren't sure how long to leave it in the oven. You don't have the recipe, remember? Twenty minutes later, you stick your head in the oven to see if it's done. You notice the oven seems strangely cool. You smell gas. After this cake is done, I'll see where the gas leak is, you think, as you slowly drift off to sleep. Your last smell is gas, strawberries, and the rat poison you accidentally added to your recipe. THE END.
+
+17. Oh, come on! Why'd you go and pick that? That's, like, the most boringest thing. Sorry, but if you pick the stupid, boring safe options in these kinds of things, sooner or later it's going to catch up with you. I'm going to give you one more chance: you're bored with the same old boring chocolate recipe. What should you do?
+
+If you want to spice it up a little, go to 18.
+If you want to disregard the wise author's advice and continue what you were doing, go to 19.
+
+18. You whip up a batch of the same old boring chocolate recipe. Now you can put in something extra to spice it up. How to start?, you ask yourself.
+
+If your idea of spicing up a cake is putting in a boxful of baking soda, go to 20.
+If you want to spice it up by adding beef, go to 21.
+
+
+19. You start gathering the ingredients for your favorite chocolate cake: flour, eggs, sugar, milk, butter, and chocolate. You're being a little careless with the measuring, seeing as you're so used to making this kind of cake that you think you can afford to be a little sloppy. You accidentally add much more flour than you're supposed to. Shrugging it off, you shove it in the oven. Two hours later, when your cake is done, you hear a noise outside of your window. Judging by the conversation, it's mobsters, and they're angry. A knock sounds at your door, and you suddenly remember that you owe these men a large sum of money. What should you do?
+
+If you want to turn off your lights and pretend you're not home, go to 22.
+If you want to try to appease the mobsters by giving them your cake, go to 23.
+
+20. Here goes nothing, you think, dumping an entire box of baking soda into your batter. You mix the whole mess together and pop it in the oven. Then you go into another room and get a book to read. Minutes later, you hear some kind of commotion coming from your kitchen. What should you do?
+
+If you'd like to head over to the kitchen to find out what's going on, go to 24.
+If you'd rather keep reading, go to 25.
+
+21. You take your batter and add in hunks of beef. You throw the whole thing in the oven and wait for it to cook. You're impatient to try your new concoction, so you take it out of the oven a half-hour early. You cut yourself a huge slice. The cake is beyond awful; the batter is still gooey, and the beef is raw. Plus, the beef doesn't exactly do much to help the flavor. Nonetheless, you're hungry, and a cake is a cake, and you're a big ol' glutton, so you finish the whole thing.
+
+The paramedics find you passed out on the floor the next morning, with the empty cake bowl next to you. You die a week later from complications with salmonella poisoning and mad cow disease. Maybe you should have tried a vegan cake. THE END.
+
+22. Fingers shaking, you turn off all the lights in your home. You are aware that the mobsters can see you doing this through your windows, but fear makes you irrational. Your front door opens. Too bad you forgot to lock it. The mobsters are coming toward the kitchen, where you lie crouched behind a table. Someone turns the lights on. "Well, what a delicious looking cake that is!" says the leading mobster, looking at your chocolate cake. "Too bad you didn't try giving us some instead of hiding like a coward. We would have forgotten about the money. I love dessert! Now prepare to meet your maker!" THE END.
+
+23. You walk to your front door, holding the freshly-made cake. You open the door and the mobsters storm in. "Hi guys," you say, "Want some cake?" The mobsters look around at each other. "Well," the leader says, "I was going to ask for the money you owe us, but I do like a nice chocolate cake." You slice up the cake and everybody grabs a piece. The leader is the first to take a bite. "Yuck!" He spits it out. "This cake has far too much flour in it! Prepare to meet your maker." Your last thoughts are, "Why, oh why didn't I try to spice up that cake a little?" THE END.
+
+24. Reluctantly, you put down your book and proceed to the kitchen, you'd just gotten to the best part. As you get closer to the kitchen, the noise increases. You hear pots and pans clunking around. Finally, you see what's been making all the commotion: your cake! It's alive! Seconds later, you're lost in an ocean of chocolate. What a pleasant way to die, you think, stuffing your face. What a glutton you are.. I mean, were. THE END.
+
+25. You keep on reading. You're up to the best part. They're just about to reveal who misplaced Yentil's goats. That mysterious noise coming from the kitchen can wait a little longer.
+A little bit later, you're interrupted from the book to find an ocean of chocolate goo headed straight toward you. Maybe you added just a tad too much baking soda. Darn, you think, and I never did get to find what was the matter with Yentil. THE END.
+
+26. It comes time to cut the gigantic pineapple you bought from the health food store. You're left-handed, and you've never been really handy with knives. What should you do?
+
+If you want to carry on and try to use the sharp, large knife yourself, go to 28.
+If you want to ask someone else to cut it for you, go to 29.
+If you want to give up and quit trying to make cake, go to 30.
+If you begin to feel sorry for the pineapple, and decide to cut all carbon-based life forms from your diet, go to 32.
+If you want to renounce your veganism and make another kind of cake, go to 33.
+If you want to get an unnatural can of pre-sliced pineapple and use that, go to 34.
+
+27. You're a right-handed vegan. You cut the pineapple without a problem, and put it in the oven. You lick your lips in anticipation of your special upside-down cake. When it comes out of the oven, you cut yourself a nice slice, and eagerly dig in. You spit it out. It tastes terrible. You remember too late that you've never even tasted pineapple before, and that you don't even like the taste. Even later than that, you realize that it was a good thing you'd never tried pineapple before- you're deathly allergic. Your throat swells up and you break out in hives all over. You find it difficult to breathe. THE END.
+
+28. You continue trying to use the large sharp knife yourself. Knife on the pineapple, both hands clutching the knife, you begin sawing away like mad. It's to no avail; the pineapple keeps rolling away. You realize that you have to hold the pineapple down with your right hand, and continue cutting with your left.
+Slightly later, blood is gushing from your right hand. Some of it falls into your cake batter. As you lose conciousness, you faintly wonder whether or not the bloody cake would still be considered vegan. THE END.
+
+29. You consider stopping and asking someone else to cut it for you. Unfortunately, all your friends are left-handed too, and equally as clumsy as you are. You're right back where you started from. What should you do?
+
+If you want to ask one of your friends to do it for you anyway, go to 31.
+If you want to try to cut it yourself, go to 28.
+If you want to reconsider your options, go to 26.
+
+30. Give up and quit trying to make cake? Never! You're a vegan, remember? You're so stubborn that you wouldn't admit you were wrong, ever. I'm ashamed for you. Go to 28 and stop being so down on yourself.
+
+31. You go through your address book, but you don't find anyone willing to cut it for you. They all know that they're not capable of using a knife, ever. Go to 28 and cut it yourself.
+
+32. Resolutely, you decide that you will not eat any more pineapple. Nor will you eat anything ever again besides salt and water. To do so would be cruel. You grow thinner and thinner until three weeks later, you die of malnutrition. THE END.
+
+33. That's it: you've had the final straw. No more being a vegan. A chocolate cake with lots of milk and eggs sound really good right about now.. Until you realize that you still want to be a vegan, and you still want cake. Go back to 26 and make another choice- and no more quitting for you!
+
+34. You visit the local supermarket, to which you have not been since you became a vegan several years ago. You wander toward the canned foods aisle.. And angrily storm out once you realize that the canned pineapple isn't organic. What trash people eat these days, you mutter to yourself.
+
+If you want to cut the pineapple yourself, go to 28.
+If you want to try getting someone else to do it, go to 29.
+
+35. Mmm.. A delicious smell wafts around the kitchen. Your mouth waters. You pull your heavenly cake out of the oven. You followed the recipe perfectly and everything went as planned- and now you sit back, relax, and enjoy a taste-treat that was prepared with your own two hands. All that hard work finally paid off.
+As you lick the last few crumbs from the plate, the phone rings. You hasten to pick it up. A man on the other end tells you that you've just won a million dollars in the lottery! And you got a role as the leading actor in a remake of your favorite movie, at a fantastically large sum of money.
+That night, as you crawl into your warm and cozy bed, you think to yourself how utterly wonderful your life is. THE END.

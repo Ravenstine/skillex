@@ -1,8 +1,8 @@
 {
   "session": {
-    "sessionId": "SessionId.9fb2276e-6fef-432c-ad91-4cfbe626b4e1",
+    "sessionId": "SessionId.test",
     "application": {
-      "applicationId": "amzn1.ask.skill.96f9aafb-3895-446d-8454-94404f8b457a"
+      "applicationId": "amzn1.ask.skill.test"
     },
     "attributes": {},
     "user": {
@@ -12,7 +12,7 @@
   },
   "request": {
     "type": "LaunchRequest",
-    "requestId": "EdwRequestId.68c74499-824b-4669-a317-90dc36da3c3e",
+    "requestId": "EdwRequestId.test",
     "locale": "en-US",
     "timestamp": "2017-07-27T01:02:25Z"
   },
